@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: se.sics:parent-maker:1.1-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/parent-maker/1.1-SNAPSHOT/parent-maker-1.1-20140825.105004-4.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/parent-maker/1.1-SNAPSHOT/parent-maker-1.1-20140825.105004-4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/parent-maker/1.1-SNAPSHOT/parent-maker-1.1-20140825.105004-4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

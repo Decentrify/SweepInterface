@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: se.sics:as-distances:1.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/as-distances/1.0-SNAPSHOT/as-distances-1.0-20120411.112622-2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/as-distances/1.0-SNAPSHOT/as-distances-1.0-20120411.112622-2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/as-distances/1.0-SNAPSHOT/as-distances-1.0-20120411.112622-2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: se.sics.net.utils:resolve-ip:1.1-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/net/utils/resolve-ip/1.1-SNAPSHOT/resolve-ip-1.1-20140825.104834-5.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/net/utils/resolve-ip/1.1-SNAPSHOT/resolve-ip-1.1-20140825.104834-5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/net/utils/resolve-ip/1.1-SNAPSHOT/resolve-ip-1.1-20140825.104834-5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

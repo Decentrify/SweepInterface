@@ -1,0 +1,36 @@
+div#searchResultWrapper{
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -40px;
+    /*background-image: url("/app/img/AboveTheClouds2.jpg");*/
+    /*background-repeat:no-repeat ;*/
+}
+
+div#searchResultHeader{
+    height: 40px;
+    width: 100%;
+    /*background-color: #ffff00;*/
+}
+
+
+div#searchResultContent{
+    width: 980px;
+    min-height: 980px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 2px solid #456879;
+
+}
+
+div#searchResultPush{
+    height: 40px;
+    width: 100%;
+}
+
+
+div#searchResultFooter{
+    height: 40px;
+    width: 100%;
+}

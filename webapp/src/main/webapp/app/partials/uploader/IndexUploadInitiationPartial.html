@@ -1,0 +1,46 @@
+<!-- This represents the partial that will trigger index upload process. -->
+
+
+<div id = "mainContent" ng-controller="UploaderInitiationController">
+
+    <div id="uploadDiv">
+        <p><b>Click To Start Upload</b></p>
+        <a ng-click="startEntryAddition()"><img src="img/UploadImageBasic.png" height="100px" width="100px"></a>
+    </div>
+
+    <div id="uploadInfoDiv">
+
+        <div id="configurationHeading"><label>Configuration</label></div>
+
+        <div id="configurationInfo">
+
+            <table id="configurationTable">
+
+                <tr class="configurationTableEntry">
+
+                    <td class="labelClass">
+                        Select Category:
+                    </td>
+
+                    <td class="infoClass">
+                        <select ng-model="configuration.category" ng-options ="category.value as category.name for category in categories"></select>
+                    </td>
+
+                </tr>
+            </table>
+
+            <a class="navigation" ng-click="startEntryAddition()">
+
+                <div class="imageDiv">
+                    <img src="/app/img/Upload1.png" width="20px" height ="20px"/>
+                </div>
+                <div class="textDiv">
+                    <label>Start Upload</label>
+                </div>
+
+            </a>
+
+        </div>
+    </div>
+
+</div>

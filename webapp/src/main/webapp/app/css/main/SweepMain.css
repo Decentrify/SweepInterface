@@ -1,0 +1,99 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,300italic|Muli:300,400);
+
+*{
+    margin: 0;
+}
+html{
+    font-family: "muli", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+    font-style: normal;
+    /* 1 */
+    -ms-text-size-adjust: 100%;
+    /* 2 */
+    -webkit-text-size-adjust: 100%;
+    height: 100%;
+}
+body{
+    height: 100%;
+}
+
+div#sweepWrapper{
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -40px;
+}
+
+div#sweepHeader{
+    width: 984px;
+    float: left;
+    height: 300px;
+    margin: 200px 0 0 300px;
+}
+
+div#sweepHeader div#heading{
+    width: 980px;
+    float: left;
+    height: 196px;
+    margin: 100px 0 0 0;
+    border-radius: 10px;
+    border: 2px solid #456879;
+}
+
+div#sweepHeader div#heading label{
+    float: left;
+    /*display: block;*/
+    font-size: 450%;
+    font-weight: bolder;
+    margin: 40px 0 0 100px;
+}
+
+div#sweepHeader div#navigationDiv{
+    float: left;
+    width: 100%;
+    height: 100px;
+    margin: 0px;
+    text-align: center;
+}
+
+
+div#sweepHeader div#navigationDiv div#linkWrapper{
+    float: left;
+    margin: 0 0 0 300px;
+    height: 100%;
+}
+
+div#sweepHeader .navigation{
+    float: left;
+    margin: 30px 20px 20px 20px;
+    padding: 10px 30px 10px 30px;
+    border-radius: 10px;
+    border: 2px solid #456879;
+    display: none;
+    background-color: #ffffff;
+}
+
+
+div#sweepHeader .navigation .imageDiv{
+    float: left;
+    /*background: #999999;*/
+    margin: 0 10px 0 0;
+}
+
+div#sweepHeader .navigation .textDiv{
+    float: left;
+    /*background: #105cb6;*/
+}
+
+
+div#sweepPush{
+    height: 40px;
+    width: 100%;
+}
+
+div#sweepFooter{
+    width: 100%;
+    height: 40px;
+    background-color: #f1f1f1;
+}

@@ -1,0 +1,23 @@
+<!-- Main Search File. -->
+<!DOCTYPE html>
+<html ng-app="searchModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Search Entry</title>
+    <link rel="stylesheet" href="/app/css/search/SearchMain.css">
+    <link rel="stylesheet" href="/app/css/search/SearchResultPartial.css">
+    <link rel="stylesheet" href="/app/css/search/SearchResultEntry.css">
+    <link rel="stylesheet" href="/app/css/search/SearchInput.css">
+</head>
+<body>
+
+    <div id="searchReplacementDiv" ng-view></div>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="js/search/searchApp.js"></script>
+    <script src="js/search/controller/controllers.js"></script>
+    <script src="js/search/controller/service.js"></script>
+
+</body>
+</html>

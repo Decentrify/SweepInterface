@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: se.sics.kompics.simulation:kompics-simulation:0.6.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/kompics/simulation/kompics-simulation/0.6.0-SNAPSHOT/kompics-simulation-0.6.0-20140801.123015-4.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/kompics/simulation/kompics-simulation/0.6.0-SNAPSHOT/kompics-simulation-0.6.0-20140801.123015-4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/kompics/simulation/kompics-simulation/0.6.0-SNAPSHOT/kompics-simulation-0.6.0-20140801.123015-4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

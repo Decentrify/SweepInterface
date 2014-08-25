@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: se.sics.hp.rs:rendezvous-server:1.1-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/hp/rs/rendezvous-server/1.1-SNAPSHOT/rendezvous-server-1.1-20140825.104958-4.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/hp/rs/rendezvous-server/1.1-SNAPSHOT/rendezvous-server-1.1-20140825.104958-4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/hp/rs/rendezvous-server/1.1-SNAPSHOT/rendezvous-server-1.1-20140825.104958-4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

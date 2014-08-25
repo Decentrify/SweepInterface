@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="var" path="M2_REPO/javax/xml/bind/jaxb-api/2.2.2/jaxb-api-2.2.2.jar" sourcepath="M2_REPO/javax/xml/bind/jaxb-api/2.2.2/jaxb-api-2.2.2-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/javax/xml/bind/jaxb-api/2.2.2/jaxb-api-2.2.2-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar" sourcepath="M2_REPO/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1/activation-1.1.jar" sourcepath="M2_REPO/javax/activation/activation/1.1/activation-1.1-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/javax/servlet/jsp/javax.servlet.jsp-api/2.2.1/javax.servlet.jsp-api-2.2.1.jar" sourcepath="M2_REPO/javax/servlet/jsp/javax.servlet.jsp-api/2.2.1/javax.servlet.jsp-api-2.2.1-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/javax/servlet/jsp/javax.servlet.jsp-api/2.2.1/javax.servlet.jsp-api-2.2.1-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar" sourcepath="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5-sources.jar"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="var" path="M2_REPO/se/kth/ms/ms-search/1.0-SNAPSHOT/ms-search-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey-json/1.18.1/jersey-json-1.18.1.jar" sourcepath="M2_REPO/com/sun/jersey/jersey-json/1.18.1/jersey-json-1.18.1-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/com/sun/jersey/jersey-json/1.18.1/jersey-json-1.18.1-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar" sourcepath="M2_REPO/org/codehaus/jettison/jettison/1.1/jettison-1.1-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/org/codehaus/jettison/jettison/1.1/jettison-1.1-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1.jar" sourcepath="M2_REPO/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-core-asl/1.9.2/jackson-core-asl-1.9.2.jar" sourcepath="M2_REPO/org/codehaus/jackson/jackson-core-asl/1.9.2/jackson-core-asl-1.9.2-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-mapper-asl/1.9.2/jackson-mapper-asl-1.9.2.jar" sourcepath="M2_REPO/org/codehaus/jackson/jackson-mapper-asl/1.9.2/jackson-mapper-asl-1.9.2-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-jaxrs/1.9.2/jackson-jaxrs-1.9.2.jar" sourcepath="M2_REPO/org/codehaus/jackson/jackson-jaxrs/1.9.2/jackson-jaxrs-1.9.2-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-xc/1.9.2/jackson-xc-1.9.2.jar" sourcepath="M2_REPO/org/codehaus/jackson/jackson-xc/1.9.2/jackson-xc-1.9.2-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey-core/1.18.1/jersey-core-1.18.1.jar" sourcepath="M2_REPO/com/sun/jersey/jersey-core/1.18.1/jersey-core-1.18.1-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/com/sun/jersey/jersey-core/1.18.1/jersey-core-1.18.1-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/se/sics/p2p/experiments/p2p-simulator/1.1-SNAPSHOT/p2p-simulator-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/p2p/experiments/p2p-simulator/1.1-SNAPSHOT/p2p-simulator-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/kompics/p2p/kompics-experiment-scenario-dsl/0.6.0-SNAPSHOT/kompics-experiment-scenario-dsl-0.6.0-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/kompics/p2p/kompics-experiment-scenario-dsl/0.6.0-SNAPSHOT/kompics-experiment-scenario-dsl-0.6.0-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/kompics/kompics-core/0.6.0-SNAPSHOT/kompics-core-0.6.0-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/kompics/kompics-core/0.6.0-SNAPSHOT/kompics-core-0.6.0-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6.jar" sourcepath="M2_REPO/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/kompics/simulation/kompics-simulation/0.6.0-SNAPSHOT/kompics-simulation-0.6.0-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/kompics/simulation/kompics-simulation/0.6.0-SNAPSHOT/kompics-simulation-0.6.0-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/javassist/javassist/3.11.0.GA/javassist-3.11.0.GA.jar" sourcepath="M2_REPO/javassist/javassist/3.11.0.GA/javassist-3.11.0.GA-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/net/model/network-model-common/1.1-SNAPSHOT/network-model-common-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/net/model/network-model-common/1.1-SNAPSHOT/network-model-common-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/net/nat-network/1.1-SNAPSHOT/nat-network-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/net/nat-network/1.1-SNAPSHOT/nat-network-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/timer/port-timer/1.1-SNAPSHOT/port-timer-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/timer/port-timer/1.1-SNAPSHOT/port-timer-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/timer/java/java-timer/1.1-SNAPSHOT/java-timer-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/timer/java/java-timer/1.1-SNAPSHOT/java-timer-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/net/netty/1.1-SNAPSHOT/netty-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/net/netty/1.1-SNAPSHOT/netty-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/hp/hp-common/1.1-SNAPSHOT/hp-common-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/hp/hp-common/1.1-SNAPSHOT/hp-common-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/common/common/1.1-SNAPSHOT/common-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/common/common/1.1-SNAPSHOT/common-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-configuration/commons-configuration/1.9/commons-configuration-1.9.jar" sourcepath="M2_REPO/commons-configuration/commons-configuration/1.9/commons-configuration-1.9-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/commons-configuration/commons-configuration/1.9/commons-configuration-1.9-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.6/commons-lang-2.6.jar" sourcepath="M2_REPO/commons-lang/commons-lang/2.6/commons-lang-2.6-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" sourcepath="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/commons-cli/commons-cli/1.2/commons-cli-1.2.jar" sourcepath="M2_REPO/commons-cli/commons-cli/1.2/commons-cli-1.2-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/commons-cli/commons-cli/1.2/commons-cli-1.2-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/se/sics/net/utils/resolve-ip/1.1-SNAPSHOT/resolve-ip-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/net/utils/resolve-ip/1.1-SNAPSHOT/resolve-ip-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/io/netty/netty-all/4.0.10.Final/netty-all-4.0.10.Final.jar" sourcepath="M2_REPO/io/netty/netty-all/4.0.10.Final/netty-all-4.0.10.Final-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/io/netty/netty-all/4.0.10.Final/netty-all-4.0.10.Final-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/se/sics/nat-traverser/nat-traverser/1.1-SNAPSHOT/nat-traverser-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/nat-traverser/nat-traverser/1.1-SNAPSHOT/nat-traverser-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/croupier/1.1-SNAPSHOT/croupier-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/croupier/1.1-SNAPSHOT/croupier-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/nat/common/nat-common/1.1-SNAPSHOT/nat-common-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/nat/common/nat-common/1.1-SNAPSHOT/nat-common-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/net/model/network-model-king/1.1-SNAPSHOT/network-model-king-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/net/model/network-model-king/1.1-SNAPSHOT/network-model-king-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/stun/server/stun-server/1.1-SNAPSHOT/stun-server-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/stun/server/stun-server/1.1-SNAPSHOT/stun-server-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/stun/client/stun-client/1.1-SNAPSHOT/stun-client-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/stun/client/stun-client/1.1-SNAPSHOT/stun-client-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/stun/upnp/upnp-component/1.1-SNAPSHOT/upnp-component-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/stun/upnp/upnp-component/1.1-SNAPSHOT/upnp-component-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/xerces/xercesImpl/2.4.0/xercesImpl-2.4.0.jar" sourcepath="M2_REPO/xerces/xercesImpl/2.4.0/xercesImpl-2.4.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0.jar" sourcepath="M2_REPO/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/mx4j/mx4j/3.0.2/mx4j-3.0.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/mod4j/org/apache/commons/logging/1.0.4/logging-1.0.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-jxpath/commons-jxpath/1.3/commons-jxpath-1.3.jar" sourcepath="M2_REPO/commons-jxpath/commons-jxpath/1.3/commons-jxpath-1.3-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/commons-jxpath/commons-jxpath/1.3/commons-jxpath-1.3-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/se/sics/hp/rs/rendezvous-server/1.1-SNAPSHOT/rendezvous-server-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/hp/rs/rendezvous-server/1.1-SNAPSHOT/rendezvous-server-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/kompics/basic/kompics-port-timer/0.6.0-SNAPSHOT/kompics-port-timer-0.6.0-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/kompics/basic/kompics-port-timer/0.6.0-SNAPSHOT/kompics-port-timer-0.6.0-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/hp/client/hp-client/1.1-SNAPSHOT/hp-client-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/hp/client/hp-client/1.1-SNAPSHOT/hp-client-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/parent-maker/1.1-SNAPSHOT/parent-maker-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/parent-maker/1.1-SNAPSHOT/parent-maker-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-memory/4.2.0/lucene-memory-4.2.0.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-memory/4.2.0/lucene-memory-4.2.0-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/org/apache/lucene/lucene-memory/4.2.0/lucene-memory-4.2.0-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-core/4.2.0/lucene-core-4.2.0.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-core/4.2.0/lucene-core-4.2.0-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/org/apache/lucene/lucene-core/4.2.0/lucene-core-4.2.0-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-queries/4.2.0/lucene-queries-4.2.0.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-queries/4.2.0/lucene-queries-4.2.0-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/org/apache/lucene/lucene-queries/4.2.0/lucene-queries-4.2.0-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-queryparser/4.2.0/lucene-queryparser-4.2.0.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-queryparser/4.2.0/lucene-queryparser-4.2.0-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/org/apache/lucene/lucene-queryparser/4.2.0/lucene-queryparser-4.2.0-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-sandbox/4.2.0/lucene-sandbox-4.2.0.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-sandbox/4.2.0/lucene-sandbox-4.2.0-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/org/apache/lucene/lucene-sandbox/4.2.0/lucene-sandbox-4.2.0-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/jakarta-regexp/jakarta-regexp/1.4/jakarta-regexp-1.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-analyzers-common/4.2.0/lucene-analyzers-common-4.2.0.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-analyzers-common/4.2.0/lucene-analyzers-common-4.2.0-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/org/apache/lucene/lucene-analyzers-common/4.2.0/lucene-analyzers-common-4.2.0-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/se/kth/ms/ms-gradient/1.0-SNAPSHOT/ms-gradient-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/kth/ms/ms-common/1.0-SNAPSHOT/ms-common-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/net/distributed-orchestrator/1.1-SNAPSHOT/distributed-orchestrator-1.1-SNAPSHOT.jar" sourcepath="M2_REPO/se/sics/net/distributed-orchestrator/1.1-SNAPSHOT/distributed-orchestrator-1.1-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-log4j12/1.5.6/slf4j-log4j12-1.5.6.jar" sourcepath="M2_REPO/org/slf4j/slf4j-log4j12/1.5.6/slf4j-log4j12-1.5.6-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/ip-as-distances/1.0-SNAPSHOT/ip-as-distances-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/as-distances/1.0-SNAPSHOT/as-distances-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-math/2.2/commons-math-2.2.jar" sourcepath="M2_REPO/org/apache/commons/commons-math/2.2/commons-math-2.2-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/org/apache/commons/commons-math/2.2/commons-math-2.2-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/se/kth/co/g-common/1.0-SNAPSHOT/g-common-1.0-SNAPSHOT.jar" sourcepath="M2_REPO/se/kth/co/g-common/1.0-SNAPSHOT/g-common-1.0-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/se/sics/ms/netty/1.0-SNAPSHOT/netty-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.2/commons-codec-1.2.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/commons-codec/commons-codec/1.2/commons-codec-1.2-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/se/kth/ms/ms-election/1.0-SNAPSHOT/ms-election-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-webapp/8.1.10.v20130312/jetty-webapp-8.1.10.v20130312.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-xml/8.1.10.v20130312/jetty-xml-8.1.10.v20130312.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-util/8.1.10.v20130312/jetty-util-8.1.10.v20130312.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-servlet/8.1.10.v20130312/jetty-servlet-8.1.10.v20130312.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-security/8.1.10.v20130312/jetty-security-8.1.10.v20130312.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-server/8.1.10.v20130312/jetty-server-8.1.10.v20130312.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/orbit/javax.servlet/3.0.0.v201112011016/javax.servlet-3.0.0.v201112011016.jar" sourcepath="M2_REPO/org/eclipse/jetty/orbit/javax.servlet/3.0.0.v201112011016/javax.servlet-3.0.0.v201112011016-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/org/eclipse/jetty/orbit/javax.servlet/3.0.0.v201112011016/javax.servlet-3.0.0.v201112011016-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-continuation/8.1.10.v20130312/jetty-continuation-8.1.10.v20130312.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-http/8.1.10.v20130312/jetty-http-8.1.10.v20130312.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-io/8.1.10.v20130312/jetty-io-8.1.10.v20130312.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-servlets/8.1.10.v20130312/jetty-servlets-8.1.10.v20130312.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-client/8.1.10.v20130312/jetty-client-8.1.10.v20130312.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/glassfish/web/javax.servlet.jsp/2.2.3/javax.servlet.jsp-2.2.3.jar" sourcepath="M2_REPO/org/glassfish/web/javax.servlet.jsp/2.2.3/javax.servlet.jsp-2.2.3-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/org/glassfish/web/javax.servlet.jsp/2.2.3/javax.servlet.jsp-2.2.3-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/com/google/guava/guava/13.0.1/guava-13.0.1.jar" sourcepath="M2_REPO/com/google/guava/guava/13.0.1/guava-13.0.1-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/babbarshaer/.m2/repository/com/google/guava/guava/13.0.1/guava-13.0.1-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+</classpath>

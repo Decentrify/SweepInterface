@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: se.sics:ip-as-distances:1.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/ip-as-distances/1.0-SNAPSHOT/ip-as-distances-1.0-20120411.112540-2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/ip-as-distances/1.0-SNAPSHOT/ip-as-distances-1.0-20120411.112540-2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/ip-as-distances/1.0-SNAPSHOT/ip-as-distances-1.0-20120411.112540-2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

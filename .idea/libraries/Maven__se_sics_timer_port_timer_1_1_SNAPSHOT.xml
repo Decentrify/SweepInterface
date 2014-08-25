@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: se.sics.timer:port-timer:1.1-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/timer/port-timer/1.1-SNAPSHOT/port-timer-1.1-20140825.104750-6.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/timer/port-timer/1.1-SNAPSHOT/port-timer-1.1-20140825.104750-6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/se/sics/timer/port-timer/1.1-SNAPSHOT/port-timer-1.1-20140825.104750-6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

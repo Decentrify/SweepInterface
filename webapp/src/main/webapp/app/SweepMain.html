@@ -1,0 +1,62 @@
+<!--This is the main Greeting File.-->
+
+<!DOCTYPE html>
+<html ng-app = "mainModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Welcome Page</title>
+    <link rel="stylesheet" href="/app/css/main/SweepMain.css"/>
+</head>
+<body>
+    <div id="sweepWrapper">
+        <div id="sweepHeader">
+
+            <div id="heading">
+                <label>Welcome To Sweep.</label>
+            </div>
+
+            <div id="navigationDiv" ng-controller="NavigationController">
+
+                <div id="linkWrapper">
+
+                    <a ng-click="searchNavigation()" class="navigation">
+
+                        <div class="imageDiv">
+                            <img src="/app/img/Search1.png" width="20px" height ="20px"/>
+                        </div>
+                        <div class="textDiv">
+                            <label>Search</label>
+                        </div>
+
+                    </a>
+
+                    <a ng-click="uploadNavigation()" class="navigation">
+
+                        <div class="imageDiv">
+                            <img src="/app/img/Upload1.png" width="20px" height ="20px"/>
+                        </div>
+                        <div class="textDiv">
+                            <label>Upload</label>
+                        </div>
+
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+        <div id="sweepContent"></div>
+        <div id="sweepPush"></div>
+
+    </div>
+
+    <div id="sweepFooter"></div>
+    <script src="/app/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/app/bower_components/angular/angular.js"></script>
+    <script src="/app/bower_components/angular-route/angular-route.js"></script>
+    <script src="/app/js/main/effects.js"></script>
+    <script src="/app/js/main/mainModule.js"></script>
+    <script src="/app/js/main/controller/controllers.js"></script>
+
+</body>
+</html>

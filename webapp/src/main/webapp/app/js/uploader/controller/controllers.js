@@ -41,7 +41,7 @@ angular.module('uploader.controller',['uploader.service'])
         };
     }])
 
-    .controller('EntryAdditionController',['dataStoreService','$scope','addIndexEntryService', function( dataStoreService, $scope, addIndexEntryService){
+    .controller('EntryAdditionController',['$log','dataStoreService','$scope','addIndexEntryService', function($log, dataStoreService, $scope, addIndexEntryService){
 
         // Double Brackets not used in the method call,
         // $scope.results = dataStoreService.fetchSearchResults;
@@ -58,12 +58,33 @@ angular.module('uploader.controller',['uploader.service'])
         $scope.filesInformation = dataStoreService.fetchFilesInformation;
 
         // Create an object to hold the data in the system.
-        $scope.indexEntryData ={};
+        $scope.indexEntryData ={
+
+            language:'English',
+            fileSize: 1,
+            category: 'Video'
+        };
 
         // Call the service to add the index entry.
         $scope.submitIndexEntry = function(){
+
+            $log.info(" Submit Index Entry Call Issued ... ");
             addIndexEntryService.addIndexEntry($scope.indexEntryData);
+
             // Restart the fetching of the updated entries in the same here.
+
+            //Clean the Entry Addition Table.
+            $scope.refreshAddIndexEntryTable();
+        }
+
+        // Simply reset the data in the system.
+        $scope.refreshAddIndexEntryTable = function(){
+            $scope.indexEntryData ={
+
+                language:'English',
+                fileSize:1,
+                category: 'Video'
+            };
         }
 
 

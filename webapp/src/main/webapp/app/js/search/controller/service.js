@@ -52,7 +52,7 @@ angular.module('searchModule.services', [])
 
                 $http({
                     method: 'PUT',
-                    url: 'http://193.10.66.39:8080/search',
+                    url: 'http://localhost:8080/search',
                     headers: {'Content-Type': 'application/json'},
                     data: search
                 })
@@ -63,9 +63,9 @@ angular.module('searchModule.services', [])
                         return data;
                     })
                     .error(function (data, status, headers, config) {
-                        $log.info("error received");
-                        dataStoreService.storeErrorSearchResults(data);
-                        return data;
+                        $log.info(" Search Service Error. Please Check ..");
+//                        dataStoreService.storeErrorSearchResults(data);
+//                        return data;
                     })
             },
 

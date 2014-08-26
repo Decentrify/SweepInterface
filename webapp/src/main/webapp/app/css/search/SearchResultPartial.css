@@ -24,6 +24,11 @@ div#searchResultContent{
 
 }
 
+
+div#searchResultContent li{
+    list-style: none;
+}
+
 div#searchResultPush{
     height: 40px;
     width: 100%;

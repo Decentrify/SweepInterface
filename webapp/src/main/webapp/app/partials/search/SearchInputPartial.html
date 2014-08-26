@@ -4,7 +4,7 @@
 
         <div id="searchContentWrapper">
             <div id="searchContent" ng-controller="SearchInputController">
-                <input type="text" placeholder="Search Text ..." id="searchBar">
+                <input type="text" placeholder="Search Text ..." id="searchBar" ng-model="input.fileNamePattern">
                 <input type="button" value="Search" id="searchButton" ng-click="goSearchValue()">
             </div>
             <div style="clear:both"></div>

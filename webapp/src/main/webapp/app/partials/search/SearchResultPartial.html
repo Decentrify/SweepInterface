@@ -1,69 +1,28 @@
 
-<div id="searchResultWrapper">
+<div id="searchResultWrapper" ng-controller="SearchResultController">
 
     <div id="searchResultHeader"></div>
 
     <div id="searchResultContent">
 
-        <div class="searchResultEntry">
-            <div class="heading"><label>The Dawn of the Planet of the Apes.</label></div>
+        <ul>
+            <li ng-repeat= "result in results()">
 
-            <div class="thumbnailDiv"></div>
+                <div class="searchResultEntry">
+                    <div class="heading"><label>{{result.fileName}}</label></div>
 
-            <div class="metaDataDiv">
-                <div class="linkDiv"><a href="http://www.google.com">https://www.youtube.com/watch?v=1M2gC86Q_9o</a></div>
-                <div class="additionInfoDiv">Date Created: 12/08/2014</div>
-                <div class="descriptionDiv ellipsis">
-                    A growing nation of genetically evolved apes led by Caesar is threatened by a band of human survivors of
-                    the devastating virus unleashed a decade earlier. They reach a fragile peace, but it proves short-lived,
-                    as both sides are brought to the brink of a war that will determine who will emerge as Earth's dominant
-                    species and much more which I cannot describe right now as it is too much to tell and I dont have much
-                    time ...
+                    <div class="thumbnailDiv"></div>
+
+                    <div class="metaDataDiv">
+                        <div class="linkDiv"><a ng-href="{{result.url}}" target="_blank">{{result.url}}</a></div>
+                        <div class="additionInfoDiv">Date Created: {{result.uploaded| date:'yyyy-MM-dd'}}</div>
+                        <div class="descriptionDiv ellipsis"> {{result.description}} </div>
+                    </div>
                 </div>
-            </div>
-
-        </div>
-
-
-        <div class="searchResultEntry">
-            <div class="heading"><label>Planet of the Apes</label></div>
-
-            <div class="thumbnailDiv"></div>
-
-            <div class="metaDataDiv">
-                <div class="linkDiv"><a href="http://www.google.com">https://www.youtube.com/watch?v=W5HK-kD3sdo</a></div>
-                <div class="additionInfoDiv">Date Created: 12/08/2014</div>
-                <div class="descriptionDiv ellipsis">
-                    It is the year 2029: Astronaut Leo Davidson boards a pod cruiser on a Space Station for a "routine" reconnaissance mission.
-                    But an abrupt detour through a space time wormhole lands him on a strange planet where talking apes rule over the human race.
-                    With the help of a sympathetic chimpanzee activist named Ari and a small band of human rebels,
-                    Leo leads the effort to evade the advancing Gorilla Army led by General Thade and his most trusted warrior Attar
-                </div>
-            </div>
-
-        </div>
-
-
-        <div class="searchResultEntry">
-            <div class="heading"><label>Rise of the Planet of the Apes</label></div>
-
-            <div class="thumbnailDiv"></div>
-
-            <div class="metaDataDiv">
-                <div class="linkDiv"><a href="http://www.google.com">https://www.youtube.com/watch?v=f8D2NIGEJW8</a></div>
-                <div class="additionInfoDiv">Date Created: 12/08/2014</div>
-                <div class="descriptionDiv ellipsis">
-                    At the story's heart is Caesar (Andy Serkis), a chimpanzee who gains human-like intelligence and emotions from an experimental drug.
-                    Raised like a child by the drug's creator, Will Rodman (James Franco) and a primatologist Caroline Aranha (Freida Pinto), Caesar ultimately finds himself taken
-                    from the humans he loves and imprisoned in an ape sanctuary in San Bruno. Seeking justice for his fellow inmates,
-                    Caesar gives the fellow apes the same drug that he inherited.
-                </div>
-            </div>
-
-        </div>
+            </li>
+        </ul>
 
      <div style="clear:both"></div>
-
 
     </div>
     <div id="searchResultPush"></div>

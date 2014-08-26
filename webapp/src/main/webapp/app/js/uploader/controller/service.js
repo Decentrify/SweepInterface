@@ -67,34 +67,35 @@ angular.module('uploader.service', [])
 
         return{
             fetchFreshAddedFiles : function(){
-                $log.info(" File Fetch Protocol Initiated.");
+                $log.info(" File File Information From Gvod Initiated .... ");
 
                 // Create an http get request which will be sent to the webservice along with the params.
-                $http({
 
-                    method: 'GET',
-                    url: 'http://localhost:8080/fetchFiles',
-                    headers:{'Content-Type':'application/json'}
+//                $http({
+//
+//                    method: 'GET',
+//                    url: 'http://localhost:8080/fetchFiles',
+//                    headers:{'Content-Type':'application/json'},
 //                    params: {
 //                        // Fetch the category entered by the user and add it to the params.
 //                        category: dataStoreService.fetchConfigurationInformation().category
 //                    }
-                })
-                    .success(function(data,status,headers,config){
-                        $log.info("Success Received Some Data");
+//                })
+//                    .success(function(data,status,headers,config){
+//                        $log.info("Success Received Some Data");
 //                        dataStoreService.storeFilesInformation(data);
-                    })
-
-                    .error(function(data,status,headers,config){
-                        $log.info("Received Some Error ... ");
-                    })
-
+//                    })
+//
+//                    .error(function(data,status,headers,config){
+//                        $log.info("Received Some Error ... ");
+//                    })
 
             }
         }
     }])
 
-    .service('addIndexEntryService',['$log',function($log){
+
+    .service('addIndexEntryService',['$http','$log',function($http,$log){
 
         return{
 
@@ -102,23 +103,20 @@ angular.module('uploader.service', [])
                 $log.info("Index Entry Initiated.");
 
                 // Call the REST API To add the index entry in the system.
-
-                /**
                 $http({
                     method: 'PUT',
-                    url: 'http://193.10.66.39:8080/add',
+                    url: 'http://localhost:8080/add',
                     headers: {'Content-Type': 'application/json'},
                     data: entryData
                 })
                     .success(function (data, status, headers, config) {
                         // Some response needs to be there for this.
-                        $log.info('Data Persisted in the system.');
+                        $log.info('Index Entry Added in the System. ');
                     })
                     .error(function (data, status, headers, config) {
                         // Same Here.
-                        $log.info('Data Retrieved from it.');
+                        $log.info('Index Entry Addition Failed. ');
                     })
-                **/
             }
         }
 

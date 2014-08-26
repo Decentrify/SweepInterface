@@ -12,7 +12,7 @@ angular.module('searchModule.controllers',['searchModule.services'])
         $scope.input={};
         $scope.goSearchValue = function(){
             // Performing search.
-//            searchService.performSearch($scope.input);
+            searchService.performSearch($scope.input);
 //            $log.info($location.path());
             $location.path('/results');
 //            $log.info($location.path());

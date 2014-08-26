@@ -14,13 +14,21 @@ div#searchHeader{
 }
 
 div#searchContentWrapper{
+
+    width: 980px;
+    margin: 0 auto;
+    min-height: 500px;
+}
+
+
+div#searchContent{
     float: left;
     min-height: 400px;
-    width: 980px;
-    margin: 100px 0 0 300px;
-    /*background-color: #737373;*/
+    width: 976px;
+    margin: 150px 0 0 0;
+    background-color: #737373;
     border-radius: 10px;
-    /*border: 2px solid #456879;*/
+    border: 2px solid #456879;
     background-color: rgba(115,115,115,0.5);
 }
 

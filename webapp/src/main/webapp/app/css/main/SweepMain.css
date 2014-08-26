@@ -26,22 +26,32 @@ div#sweepWrapper{
 }
 
 div#sweepHeader{
-    width: 984px;
-    float: left;
-    height: 300px;
-    margin: 200px 0 0 300px;
+    /*width: 984px;*/
+    /*float: left;*/
+    /*height: 300px;*/
+    /*margin: 200px 0 0 300px;*/
+
+    width: 100%;
+    height: 50px;
 }
 
-div#sweepHeader div#heading{
+div#sweepContent{
+
     width: 980px;
+    margin: 0 auto;
+    min-height: 500px;
+}
+
+div#heading{
+    width: 976px;
     float: left;
     height: 196px;
-    margin: 100px 0 0 0;
+    margin: 200px 0 0 0;
     border-radius: 10px;
     border: 2px solid #456879;
 }
 
-div#sweepHeader div#heading label{
+div#heading label{
     float: left;
     /*display: block;*/
     font-size: 450%;
@@ -49,7 +59,7 @@ div#sweepHeader div#heading label{
     margin: 40px 0 0 100px;
 }
 
-div#sweepHeader div#navigationDiv{
+div#navigationDiv{
     float: left;
     width: 100%;
     height: 100px;
@@ -58,13 +68,13 @@ div#sweepHeader div#navigationDiv{
 }
 
 
-div#sweepHeader div#navigationDiv div#linkWrapper{
+div#navigationDiv div#linkWrapper{
     float: left;
     margin: 0 0 0 300px;
     height: 100%;
 }
 
-div#sweepHeader .navigation{
+.navigation{
     float: left;
     margin: 30px 20px 20px 20px;
     padding: 10px 30px 10px 30px;
@@ -75,13 +85,13 @@ div#sweepHeader .navigation{
 }
 
 
-div#sweepHeader .navigation .imageDiv{
+.navigation .imageDiv{
     float: left;
     /*background: #999999;*/
     margin: 0 10px 0 0;
 }
 
-div#sweepHeader .navigation .textDiv{
+.navigation .textDiv{
     float: left;
     /*background: #105cb6;*/
 }

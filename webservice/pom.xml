@@ -16,6 +16,13 @@
     <packaging>jar</packaging>
     <name>ms-webservice</name>
 
+
+
+    <properties>
+        <dropwizard.version>0.6.2</dropwizard.version>
+        <jetty.version>8.1.10.v20130312</jetty.version>
+    </properties>
+
     <!-- Dependencies -->
     <dependencies>
 
@@ -34,21 +41,37 @@
 
         </dependency>
 
-        <dependency>
-            <groupId>io.dropwizard</groupId>
-            <artifactId>dropwizard-core</artifactId>
-            <version>0.7.0</version>
-        </dependency>
-        <dependency>
-            <groupId>io.dropwizard</groupId>
-            <artifactId>dropwizard-jetty</artifactId>
-            <version>0.7.0</version>
+        <!--<dependency>-->
+            <!--<groupId>io.dropwizard</groupId>-->
+            <!--<artifactId>dropwizard-core</artifactId>-->
+            <!--<version>0.7.0</version>-->
+        <!--</dependency>-->
+        <!---->
+        <!--<dependency>-->
+            <!--<groupId>io.dropwizard</groupId>-->
+            <!--<artifactId>dropwizard-jetty</artifactId>-->
+            <!--<version>0.7.0</version>-->
+        <!--</dependency>-->
 
-        </dependency>
+
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <groupId>com.yammer.dropwizard</groupId>
+            <artifactId>dropwizard-core</artifactId>
+            <version>${dropwizard.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>${jetty.version}</version>
+        </dependency>
+
+        <!-- For the ProxyServlet -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlets</artifactId>
+            <version>${jetty.version}</version>
         </dependency>
 
         <dependency>
@@ -59,7 +82,6 @@
                 <exclusion>
                     <groupId>org.slf4j</groupId>
                     <artifactId>slf4j-log4j12</artifactId>
-                    <!--<version>1.5.6</version>-->
                 </exclusion>
             </exclusions>
         </dependency>
@@ -83,6 +105,7 @@
                     <mainClass>se.kth.ms.webservice.SearchWebServiceMain</mainClass>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 

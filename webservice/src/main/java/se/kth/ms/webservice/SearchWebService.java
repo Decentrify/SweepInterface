@@ -6,10 +6,10 @@
 
 package se.kth.ms.webservice;
 
-import io.dropwizard.Application;
-import io.dropwizard.Configuration;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
+//import io.dropwizard.Application;
+//import io.dropwizard.Configuration;
+//import io.dropwizard.setup.Bootstrap;
+//import io.dropwizard.setup.Environment;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.EnumSet;
@@ -22,6 +22,11 @@ import javax.servlet.FilterRegistration.Dynamic;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import com.yammer.dropwizard.Service;
+import com.yammer.dropwizard.config.Bootstrap;
+import com.yammer.dropwizard.config.Configuration;
+import com.yammer.dropwizard.config.Environment;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import se.kth.ms.webservicemodel.*;
 import se.sics.ms.types.IndexEntry;
@@ -31,7 +36,7 @@ import se.sics.ms.types.SearchPattern;
  *
  * @author jdowling
  */
-public class SearchWebService extends Application<Configuration> implements SearchDelegate
+public class SearchWebService extends Service<Configuration> implements SearchDelegate
 {
     static SearchWebServiceMiddleware search;
 
@@ -61,21 +66,23 @@ public class SearchWebService extends Application<Configuration> implements Sear
     @Override
     public void run(Configuration configuration, Environment environment) {
         
-        environment.jersey().register(new SearchIndexResource());
-        environment.jersey().register(new AddIndexResource());
-        environment.jersey().register(new FetchFiles());
+        environment.addProvider(new SearchIndexResource());
+        environment.addProvider(new AddIndexResource());
+        environment.addProvider(new FetchFiles());
+
 
         /*
          * To allow cross orign resource request from angular js client
          */
-        Dynamic filter = environment.servlets().addFilter("CORS", CrossOriginFilter.class);
-            filter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
-            filter.setInitParameter("allowedOrigins", "*");
-            filter.setInitParameter("allowedHeaders", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin");
-            filter.setInitParameter("allowedMethods", "GET,PUT,POST,DELETE,OPTIONS");
-            filter.setInitParameter("preflightMaxAge", "5184000"); // 2 months
-            filter.setInitParameter("allowCredentials", "true");
+        environment.addFilter(CrossOriginFilter.class,"/*").
+                setInitParam("allowedOrigins", "*").
+                setInitParam("allowedHeaders", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin").
+                setInitParam("allowedMethods", "GET,PUT,POST,DELETE,OPTIONS").
+                setInitParam("preflightMaxAge", "5184000"). // 2 months
+                setInitParam("allowCredentials", "true");
     }
+
+
 
 
     @Path("/add")

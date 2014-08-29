@@ -85,16 +85,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>${java.compiler.version}</source>
-                    <target>${java.compiler.version}</target>
-                </configuration>
-            </plugin>
-
             <!--
             The maven app assembler plugin will generate a script that sets up the classpath and runs your project.
             Remember to set the JAVA_HOME to a JVM compatible with the Java version specified in the pom, otherwise

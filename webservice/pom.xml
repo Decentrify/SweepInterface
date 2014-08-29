@@ -60,12 +60,6 @@
                 </executions>
                 <configuration>
                     <mainClass>se.kth.ms.webservice.SearchWebServiceMain</mainClass>
-                    <systemProperties>
-                        <systemProperty>
-                            <key>java.net.preferIPv4Stack</key>
-                            <value>true</value>
-                        </systemProperty>
-                    </systemProperties>
                 </configuration>
             </plugin>
 

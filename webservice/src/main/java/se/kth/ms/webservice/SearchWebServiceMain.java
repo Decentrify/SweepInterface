@@ -146,6 +146,10 @@ public class SearchWebServiceMain extends ComponentDefinition {
 
             int myId = (new Random(MsConfig.getSeed())).nextInt();
             InetAddress localIp = event.getIpAddress();
+
+            if(localIp.getHostName().equals(publicBootstrapNode))
+                myId = 0;
+
             myAddr = new Address(localIp, /*randInt(49152, 65535)*/MsConfig.getPort(), myId);
 
             network = create(NettyNetwork.class, new NettyInit(MsConfig.getSeed(), true, MessageFrameDecoder.class));

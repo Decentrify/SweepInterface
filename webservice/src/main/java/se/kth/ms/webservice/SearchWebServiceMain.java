@@ -128,7 +128,11 @@ public class SearchWebServiceMain extends ComponentDefinition {
                 connect(natTraverser.getNegative(VodNetwork.class), network.getPositive(VodNetwork.class));
                 connect(natTraverser.getNegative(NatNetworkControl.class), network.getPositive(NatNetworkControl.class));
                 connect(searchMiddleware.getPositive(UiPort.class), searchPeer.getNegative(UiPort.class));
-                connect(network.getPositive(VodNetwork.class), searchPeer.getNegative(VodNetwork.class), new MsgDestFilterAddress(myAddr));
+
+                /** Filter not working for some reason so commenting it.**/
+//                connect(network.getPositive(VodNetwork.class), searchPeer.getNegative(VodNetwork.class),new MsgDestFilterAddress(myAddr));
+
+                connect(network.getPositive(VodNetwork.class), searchPeer.getNegative(VodNetwork.class));
                 connect(timer.getPositive(Timer.class), searchPeer.getNegative(Timer.class),
                         new IndividualTimeout.IndividualTimeoutFilter(myAddr.getId()));
 
@@ -147,6 +151,7 @@ public class SearchWebServiceMain extends ComponentDefinition {
             int myId = (new Random(MsConfig.getSeed())).nextInt();
             InetAddress localIp = event.getIpAddress();
 
+            logger.info("My Local Ip Address returned from ResolveIp is:  " + localIp.getHostName());
             if(localIp.getHostName().equals(publicBootstrapNode))
                 myId = 0;
 

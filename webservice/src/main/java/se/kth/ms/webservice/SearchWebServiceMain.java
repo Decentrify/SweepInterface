@@ -148,7 +148,11 @@ public class SearchWebServiceMain extends ComponentDefinition {
         @Override
         public void handle(GetIpResponse event) {
 
-            int myId = (new Random(MsConfig.getSeed())).nextInt();
+            //FIXME: Fix the case in which the different nodes in which the initial seed is generated same.
+//            int myId = (new Random(MsConfig.getSeed())).nextInt();
+            int myId = (new Random()).nextInt();
+
+            logger.debug(" _Abhi: Search Peer Initiated with ID: " + myId);
             InetAddress localIp = event.getIpAddress();
 
             logger.info("My Local Ip Address returned from ResolveIp is:  " + localIp.getHostName());

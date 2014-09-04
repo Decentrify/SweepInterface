@@ -9,7 +9,9 @@ angular.module('searchModule.controllers',['searchModule.services'])
 
     .controller('SearchInputController',['$log', '$location' , 'dataStoreService' ,'searchService', '$scope', function($log, $location, dataStoreService , searchService , $scope){
 
-        $scope.input={};
+        $scope.input={
+            category:'Video'
+        };
         $scope.goSearchValue = function(){
             // Performing search.
             searchService.performSearch($scope.input);

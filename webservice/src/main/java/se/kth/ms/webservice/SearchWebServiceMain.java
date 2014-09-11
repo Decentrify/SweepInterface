@@ -157,14 +157,15 @@ public class SearchWebServiceMain extends ComponentDefinition {
 //            int myId = (new Random(MsConfig.getSeed())).nextInt();
             int myId = (new Random()).nextInt();
 
-            logger.debug(" _Abhi: Search Peer Initiated with ID: " + myId);
             InetAddress localIp = event.getIpAddress();
 
             logger.info("My Local Ip Address returned from ResolveIp is:  " + localIp.getHostName());
             if(localIp.getHostName().equals(publicBootstrapNode))
                 myId = 0;
 
-            myAddr = new Address(localIp, /*randInt(49152, 65535)*/MsConfig.getPort(), myId);
+            // Bind Udt and Udp on separate ports in the system for now.
+            myAddr = new Address(localIp, MsConfig.getPort(), myId);
+            Address myUdtAddr = new Address(localIp, MsConfig.getUdtPort(), myId);
 
             network = create(NettyNetwork.class, new NettyInit(MsConfig.getSeed(), true, MessageFrameDecoder.class));
 
@@ -173,15 +174,15 @@ public class SearchWebServiceMain extends ComponentDefinition {
 
             trigger(Start.event, network.getControl());
 
-            bindPort(Transport.UDP);
-            bindPort(Transport.TCP);
+            bindPort(Transport.UDP, myAddr);
+            bindPort(Transport.UDT, myUdtAddr);
         }
     };
 
 
-    void bindPort(Transport transport) {
+    void bindPort(Transport transport, Address address) {
 
-        PortBindRequest udpPortBindReq = new PortBindRequest(myAddr, transport);
+        PortBindRequest udpPortBindReq = new PortBindRequest(address, transport);
         PsPortBindResponse pbr1 = new PsPortBindResponse(udpPortBindReq);
         udpPortBindReq.setResponse(pbr1);
         trigger(udpPortBindReq, network.getPositive(NatNetworkControl.class));

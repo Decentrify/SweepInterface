@@ -15,6 +15,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import se.sics.co.FailureDetectorComponent;
+import se.sics.co.FailureDetectorPort;
 import se.sics.gvod.address.Address;
 import se.sics.gvod.common.Self;
 import se.sics.gvod.common.util.ToVodAddr;
@@ -127,6 +129,8 @@ public class SearchWebServiceMain extends ComponentDefinition {
                         e.printStackTrace();
                     }
 
+                    Component fd = create(FailureDetectorComponent.class, Init.NONE);
+
                     connect(natTraverser.getNegative(Timer.class), timer.getPositive(Timer.class));
                     connect(natTraverser.getNegative(VodNetwork.class), network.getPositive(VodNetwork.class));
                     connect(natTraverser.getNegative(NatNetworkControl.class), network.getPositive(NatNetworkControl.class));
@@ -138,12 +142,14 @@ public class SearchWebServiceMain extends ComponentDefinition {
                     connect(network.getPositive(VodNetwork.class), searchPeer.getNegative(VodNetwork.class));
                     connect(timer.getPositive(Timer.class), searchPeer.getNegative(Timer.class),
                             new IndividualTimeout.IndividualTimeoutFilter(myAddr.getId()));
+                    connect(fd.getPositive(FailureDetectorPort.class), searchPeer.getNegative(FailureDetectorPort.class));
 
                     subscribe(handleFault, natTraverser.getControl());
 
                     trigger(Start.event, natTraverser.getControl());
                     trigger(Start.event, searchMiddleware.getControl());
                     trigger(Start.event, searchPeer.getControl());
+                    trigger(Start.event, fd.getControl());
 
                 }
             }

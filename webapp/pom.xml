@@ -34,30 +34,6 @@
     </properties>
 
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>org.eclipse.jetty</groupId>-->
-            <!--<artifactId>jetty-proxy</artifactId>-->
-            <!--<version>${jetty.version}</version>-->
-        <!--</dependency>-->
-
-        <dependency>
-            <groupId>se.kth.ms</groupId>
-            <artifactId>ms-search</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-webapp</artifactId>
-            <version>${jetty.version}</version>
-        </dependency>
-
-        <!-- For the ProxyServlet -->
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-servlets</artifactId>
-            <version>${jetty.version}</version>
-        </dependency>
 
         <!-- JSP Support -->
         <dependency>

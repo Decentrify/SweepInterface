@@ -171,7 +171,7 @@ public class SearchWebServiceMain extends ComponentDefinition {
 
             // Bind Udt and Udp on separate ports in the system for now.
             myAddr = new Address(localIp, MsConfig.getPort(), myId);
-            Address myUdtAddr = new Address(localIp, MsConfig.getUdtPort(), myId);
+            Address myUdtAddr = new Address(localIp, MsConfig.getPort()+1, myId);
 
             network = create(NettyNetwork.class, new NettyInit(MsConfig.getSeed(), true, MessageFrameDecoder.class));
 
@@ -188,6 +188,7 @@ public class SearchWebServiceMain extends ComponentDefinition {
 
     void bindPort(Transport transport, Address address) {
 
+        logger.info("Sending a port bind request for : " + address.toString());
         PortBindRequest udpPortBindReq = new PortBindRequest(address, transport);
         PsPortBindResponse pbr1 = new PsPortBindResponse(udpPortBindReq);
         udpPortBindReq.setResponse(pbr1);

@@ -31,17 +31,17 @@
             <version>${dropwizard.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>se.sics.gvod</groupId>
-            <artifactId>system</artifactId>
-            <version>${project.gvod.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>se.sics.gvod</groupId>-->
+            <!--<artifactId>system</artifactId>-->
+            <!--<version>${project.gvod.version}</version>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.slf4j</groupId>-->
+                    <!--<artifactId>slf4j-log4j12</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
 
     </dependencies>
 

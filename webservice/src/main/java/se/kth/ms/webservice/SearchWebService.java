@@ -44,7 +44,8 @@ public class SearchWebService extends Service<Configuration> implements SearchDe
     static Semaphore waitForResultMutex = new Semaphore(0);
 
     static boolean isWaitForResultInProgress = false;
-    static long TIMEOUT = 5;
+    static long SEARCH_TIMEOUT = 10;
+    static long INSERT_TIMEOUT = 30*3;
 
     static String REQUEST_TIMED_OUT_MSG = "Request timed out";
     static String REQUEST_INTERRUPTED_MSG = "Request interupted";
@@ -95,7 +96,7 @@ public class SearchWebService extends Service<Configuration> implements SearchDe
             StatusResponseJSON result = new StatusResponseJSON(StatusResponseJSON.ERROR_STRING, null);
             try
             {
-                if(requestMutex.tryAcquire(TIMEOUT, TimeUnit.SECONDS))
+                if(requestMutex.tryAcquire(INSERT_TIMEOUT, TimeUnit.SECONDS))
                 {
                     String reason = validateAddIndexRequest(addRequest);
 
@@ -115,7 +116,7 @@ public class SearchWebService extends Service<Configuration> implements SearchDe
                         try
                         {
                             isWaitForResultInProgress = true;
-                            if(waitForResultMutex.tryAcquire(TIMEOUT, TimeUnit.SECONDS))
+                            if(waitForResultMutex.tryAcquire(INSERT_TIMEOUT, TimeUnit.SECONDS))
                             {
                                 if(addIndexSuccess)
                                     result.setStatus(StatusResponseJSON.SUCCESS_STRING);
@@ -170,7 +171,7 @@ public class SearchWebService extends Service<Configuration> implements SearchDe
 
             try
             {
-                if(requestMutex.tryAcquire(TIMEOUT, TimeUnit.SECONDS))
+                if(requestMutex.tryAcquire(SEARCH_TIMEOUT, TimeUnit.SECONDS))
                 {
 
                     searchIndexResults = null;
@@ -188,7 +189,7 @@ public class SearchWebService extends Service<Configuration> implements SearchDe
                     try
                     {
                         isWaitForResultInProgress = true;
-                        if(waitForResultMutex.tryAcquire(TIMEOUT, TimeUnit.SECONDS))
+                        if(waitForResultMutex.tryAcquire(SEARCH_TIMEOUT, TimeUnit.SECONDS))
                             res = searchIndexResults;
                     }
                     catch (InterruptedException ex)

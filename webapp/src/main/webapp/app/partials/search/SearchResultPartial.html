@@ -1,12 +1,12 @@
 
-<div id="searchResultWrapper" ng-controller="SearchResultController">
+<div id="searchResultWrapper">
 
     <div id="searchResultHeader"></div>
 
     <div id="searchResultContent">
 
         <ul>
-            <li ng-repeat= "result in results()">
+            <li ng-repeat= "result in results">
 
                 <div class="searchResultEntry">
                     <div class="heading"><label>{{result.fileName}}</label></div>
@@ -14,7 +14,7 @@
                     <div class="thumbnailDiv"></div>
 
                     <div class="metaDataDiv">
-                        <div class="linkDiv"><a ng-href="{{result.url}}" target="_blank">{{result.url}}</a></div>
+                        <div class="linkDiv"><a href ng-click="play(result)" target="_blank">{{result.linkDesc}}</a></div>
                         <div class="additionInfoDiv">Date Created: {{result.uploaded| date:'yyyy-MM-dd'}}</div>
                         <div class="descriptionDiv ellipsis"> {{result.description}} </div>
                     </div>

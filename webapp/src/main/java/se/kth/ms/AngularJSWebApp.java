@@ -17,24 +17,36 @@ public class AngularJSWebApp {
 
     public static void main(String[] args) throws Exception {
 
+        String _defaultWebappLocation = "src/main/webapp";
+        String _defaultPort = "9090";
+        
+        
         // The simple Jetty config here will serve static content from the webapp directory
-        String webappDirLocation = "src/main/webapp/";
+        String webappDirLocation = null;
 
+        if(args.length > 0){
+            webappDirLocation = args[0];
+        }
+        else{
+            webappDirLocation = _defaultWebappLocation;
+        }
+        
         // The port that we should run on can be set into an environment variable
         // Look for that variable and default to 8080 if it isn't there.
         String webPort = System.getenv("PORT");
         if (webPort == null || webPort.isEmpty()) {
-            webPort = "8080";
+            webPort = _defaultPort;
         }
         Server server = new Server(Integer.valueOf(webPort));
 
         WebAppContext webapp = new WebAppContext();
         webapp.setContextPath("/");
-        webapp.setDescriptor(webappDirLocation + "/WEB-INF/web.xml");
+        webapp.setDescriptor(webappDirLocation + "WEB-INF/web.xml");
 
         File file  = new File(webappDirLocation);
-        if(file == null){
-            System.out.println("Issues ... ");
+        
+        if(!file.exists()){
+            System.out.println("Unable to find file ... ");
             System.exit(1);
         }
 

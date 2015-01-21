@@ -50,11 +50,12 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>javax.servlet</groupId>-->
+            <!--<artifactId>servlet-api</artifactId>-->
+            <!--<version>2.5</version>-->
+            <!--<scope>compile</scope>-->
+        <!--</dependency>-->
 
 
     </dependencies>
@@ -89,6 +90,24 @@
                     </execution>
                 </executions>
             </plugin>
+
+
+            <plugin>
+                <artifactId>
+                    maven-assembly-plugin
+                </artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>se.kth.ms.AngularJSWebApp</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            
 
             <!--
             The jetty-maven-plugin can be used to run Jetty with the mvn jetty:run command. Setting the

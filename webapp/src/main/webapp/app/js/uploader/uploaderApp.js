@@ -17,4 +17,42 @@ angular.module('uploaderModule',['ngRoute','uploader.controller','uploader.servi
         // Redirect to the Main Starting Page for the Sweep Project, so what should come here.
         $routeProvider.otherwise({redirectTo: '/uploader/uploadMain'});
 
-    }]);
+    }])
+    .filter('noneStatus',function(){
+        
+        return function(data){
+            
+            if(data == null){
+                return;
+            }
+            
+            var filtered = [];
+            for( var i =0 ; i < data.length; i++ ){
+                
+                if(data[i]["status"] == "NONE"){
+                    filtered.push(data[i]);
+                }
+            }
+            
+            return filtered;
+        }
+    })
+    .filter('restStatus',function(){
+
+        return function(data){
+
+            if(data == null){
+                return;
+            }
+            
+            var filtered = [];
+            for( var i =0 ; i < data.length; i++ ){
+
+                if(data[i]["status"] !== "NONE"){
+                    filtered.push(data[i]);
+                }
+            }
+            
+            return filtered;
+        }
+    });

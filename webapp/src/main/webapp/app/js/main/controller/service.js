@@ -45,7 +45,26 @@ angular.module("core-services",[])
                 var url = _defaultHost.concat("/files");
                 
                 return _getPromiseObject(method,url,_defaultContentType);
+            },
+            
+            
+            pendingUpload : function(json){
+                
+                var method = 'PUT';
+                var url = _defaultHost.concat("/pendinguploadvideo");
+                
+                return _getPromiseObject(method, url, _defaultContentType, json);
+                
+            },
+            
+            upload : function(json){
+
+                var method = 'PUT';
+                var url = _defaultHost.concat("/uploadvideo");
+
+                return _getPromiseObject(method, url, _defaultContentType, json);
             }
+            
             
         }
 

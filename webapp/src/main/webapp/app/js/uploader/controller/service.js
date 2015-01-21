@@ -103,20 +103,12 @@ angular.module('uploader.service', [])
                 $log.info("Index Entry Initiated.");
 
                 // Call the REST API To add the index entry in the system.
-                $http({
+                return $http({
                     method: 'PUT',
                     url: 'http://localhost:8080/add',
                     headers: {'Content-Type': 'application/json'},
                     data: entryData
-                })
-                    .success(function (data, status, headers, config) {
-                        // Some response needs to be there for this.
-                        $log.info('Index Entry Added in the System. ');
-                    })
-                    .error(function (data, status, headers, config) {
-                        // Same Here.
-                        $log.info('Index Entry Addition Failed. ');
-                    })
+                });
             }
         }
 

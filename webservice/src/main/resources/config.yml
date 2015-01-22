@@ -1,3 +1,7 @@
+http:
+  port: 8080
+  adminPort: 8081
+
 logging:
 
   # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.

@@ -24,6 +24,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.yammer.dropwizard.Service;
+import com.yammer.dropwizard.assets.AssetsBundle;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Configuration;
 import com.yammer.dropwizard.config.Environment;
@@ -61,6 +62,7 @@ public class SearchWebService extends Service<Configuration> implements SearchDe
     @Override
     public void initialize(Bootstrap<Configuration> bootstrap)
     {
+        bootstrap.addBundle(new AssetsBundle("/assets/","/webapp","app/SweepMain.html"));
 //        bootstrap.setName("dw-server"); // name must match the yaml config file
     }
 

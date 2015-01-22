@@ -25,7 +25,7 @@ public class AngularJSWebApp {
         String webappDirLocation = null;
 
         if(args.length > 0){
-            webappDirLocation = args[0];
+            webappDirLocation = ".";
         }
         else{
             webappDirLocation = _defaultWebappLocation;

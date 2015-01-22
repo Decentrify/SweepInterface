@@ -1,0 +1,44 @@
+<!-- Used to Trigger Webservice to fetch the updated files in the system.  -->
+
+<!DOCTYPE html>
+<html ng-app="uploaderModule">
+
+<head lang="en">
+    <!--<base href="/"/>-->
+    <meta charset="UTF-8">
+    <title>
+        Main Index Addition Page.
+    </title>
+    <link rel="stylesheet" href="css/uploader/IndexUploadMain.css"/>
+    <link rel="stylesheet" href="css/uploader/IndexUploadInitiationPartial.css">
+    <link rel="stylesheet" href="css/uploader/IndexUploadInfoAdditionPartial.css">
+</head>
+
+<body>
+
+    <div id="mainWrapper">
+
+        <div id="mainHeader"></div>
+
+        <!-- Views will be added to the following view. -->
+        <div id="viewReplaceDiv" ng-view></div>
+
+        <div id="mainPush"></div>
+
+    </div>
+
+    <div id = "mainFooter"></div>
+    <!-- Add the scripts to be used in the page. -->
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="js/uploader/uploaderApp.js"></script>
+    <script src="js/uploader/controller/controllers.js"></script>
+    <script src="js/uploader/controller/service.js"></script>
+    <script src="js/main/controller/service.js"></script>
+
+    <script src ="bower_components/jquery/dist/jquery.js"></script>
+    <script src="js/uploader/directoryHelper.js"></script>
+</body>
+
+</html>

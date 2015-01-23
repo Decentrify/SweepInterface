@@ -63,8 +63,16 @@ angular.module("core-services",[])
                 var url = _defaultHost.concat("/uploadvideo");
 
                 return _getPromiseObject(method, url, _defaultContentType, json);
-            }
+            },
             
+            
+            stop : function(json){
+                
+                var method = 'PUT';
+                var url = _defaultHost.concat("/stop");
+                
+                return _getPromiseObject(method, url, _defaultContentType, json);
+            }
             
         }
 

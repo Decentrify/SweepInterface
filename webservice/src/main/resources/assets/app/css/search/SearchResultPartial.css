@@ -24,6 +24,12 @@ div#searchResultContent{
 
 }
 
+div#videoPlayerDiv{
+    margin: 0 auto;
+    padding-top : 50px;
+    width : 800px;
+    
+}
 
 div#searchResultContent li{
     list-style: none;

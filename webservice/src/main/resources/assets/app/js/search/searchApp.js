@@ -9,6 +9,7 @@ angular.module('searchModule',['ngRoute','searchModule.controllers','searchModul
 
             $routeProvider.when('/input',{templateUrl: 'partials/search/SearchInputPartial.html', controller: 'SearchInputController'});
             $routeProvider.when('/results',{templateUrl: 'partials/search/SearchResultPartial.html', controller: 'SearchResultController'});
+            $routeProvider.when('/play/:name/:uri/:port',{templateUrl:'partials/search/VideoPlayer.html',controller: 'VideoController'});
             $routeProvider.otherwise({redirectTo: '/input'});
 
     }]);

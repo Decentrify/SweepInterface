@@ -25,7 +25,7 @@ angular.module('searchModule.controllers', [
 
     }])
 
-    .controller('SearchResultController', ['$scope', '$log', '$window', 'dataStoreService', 'GvodService', function ($scope, $log, $window, dataStoreService, GvodService) {
+    .controller('SearchResultController', ['$scope', '$log', '$location','$rootScope', 'dataStoreService', 'GvodService', function ($scope, $log, $location, $rootScope, dataStoreService, GvodService) {
 
 
         function _getDummyResults() {
@@ -41,13 +41,23 @@ angular.module('searchModule.controllers', [
             return results;
         }
 
+        
+        $scope.testMe = function(){
+
+            var linkInfo = "/play/".concat("flash.mp4").concat("/").concat("0").concat("/").concat("58026");
+            $location.path(linkInfo);
+        };
+        
         // Update structure with necessary data.
         function _restructureData(data) {
-            
-            var _defaultDesc = "Download";
 
-            for (var i = 0; i < data.length; i++) {
-                data[i]["linkDesc"] = _defaultDesc;
+            if(data != null){
+                
+                var _defaultDesc = "Download";
+
+                for (var i = 0; i < data.length; i++) {
+                    data[i]["linkDesc"] = _defaultDesc;
+                }
             }
             
             return data;
@@ -58,6 +68,8 @@ angular.module('searchModule.controllers', [
 
             // Create an object to hold results.
             scope.results = null;
+            
+            $log.info("Init Scope Called ... ");
             
             // Register a watch event, to capture updated results.
             scope.$watch(dataStoreService.fetchSearchResults, function(data){
@@ -72,11 +84,11 @@ angular.module('searchModule.controllers', [
 
             var filename = entry["fileName"];
             var linkDesc = entry["linkDesc"];
-            var url = parseInt(entry["url"]);
+            var url = entry["url"];
 
             var json = {
                 name: filename,
-                overlayId: url
+                overlayId: parseInt(url)
             };
 
             if (linkDesc === "Play") {
@@ -84,9 +96,12 @@ angular.module('searchModule.controllers', [
                 GvodService.play(json)
                     
                     .success(function (data, status, headers, config) {
-                        // Create the video in particular format.
-                        var url = "http://localhost:".concat(data).concat("/").concat(filename).concat("/").concat(filename);
-                        $window.open(url);
+                        
+                        // ==== Create Video Link. ====
+                        
+                        var linkInfo = "/play/".concat(filename).concat("/").concat(url).concat("/").concat(data);
+                        $location.path(linkInfo);
+                        
                     })
                     .error(function (data, status, headers, config) {
                         // Display User with the error.
@@ -97,7 +112,6 @@ angular.module('searchModule.controllers', [
 
             else if (linkDesc === "Download") {
 
-//                entry['linkDesc'] = "Play";
                 $log.info(json);
 
                 GvodService.download(json)
@@ -107,12 +121,13 @@ angular.module('searchModule.controllers', [
                         $log.info("Gvod initialized for the service.");
                         
                         if(data){
-                            entry['linkDesc'] = "Play";    
+                            $log.info(json.name.concat("->").concat(" initialized."));
                         }
                         else{
-                            $log.info("No able to play the video.");
+                            $log.info(json.name.concat("->").concat(" already initialized."));
                         }
 
+                        entry['linkDesc'] = "Play";
                     })
                     .error(function (data, status, headers, config) {
                         // Display User with the error.
@@ -127,4 +142,69 @@ angular.module('searchModule.controllers', [
         };
 
         initScope($scope);
+    }])
+
+    .controller("VideoController",["$log","$scope",'$routeParams','GvodService',function($log,$scope,$routeParams,GvodService){
+
+        // Route Params -> '/play/:name/:uri/:port'
+        
+        // Step 1: Construct the link information from it.
+        // Step 2: Open the video player.
+        // Step 3: Start buffering the video.
+        
+        function _initScope(scope){
+            
+            var _name = $routeParams.name;
+            var _uri = $routeParams.uri;
+            var _port = $routeParams.port;
+            
+            var _ip = "http://localhost:";
+            
+            var _videoResource = {
+                name : _name,
+                overlayId : parseInt(_uri)
+            };
+            
+            scope.source = _ip.concat(_port).concat("/").concat(_name).concat("/").concat(_name);
+            $log.info(scope.source);
+            
+            
+            if(scope.source != null){
+
+                var player = videojs('entry_video', { /* Options */ }, function() {
+
+                    $log.info('Video Player Initialized.');
+
+                    // == Properties of Player. ==
+                    this.preload(true);
+                    this.controls(true);
+                    this.src(scope.source);
+                    this.dimensions(800,400);
+
+                    // == Event Listeners. ==
+                    this.on('ended', function() {
+                        console.log('File Finished');
+                    });
+                });
+            }
+            
+            
+            // Register a call when scope destroyed.
+            scope.$on('$destroy', function(){
+
+                // Dispose the player. WARNING : Without this, the player doesn't gets initialized again in the system.
+                
+                player.dispose();
+                
+                $log.info('Scope Getting Destroyed.');
+                GvodService.stop(_videoResource);
+                
+            });
+            
+            
+
+        }
+
+        _initScope($scope);
+
     }]);

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="videoApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Video Player</title>
+    <link href="//vjs.zencdn.net/4.11/video-js.css" rel="stylesheet">
+</head>
+<body ng-controller="MainVideoController">
+
+<h1> Video Player Test </h1>
+
+<video id="example_video_11" class="video-js vjs-default-skin vjs-big-play-centered"
+       controls preload="auto" width="640" height="264"
+       poster="http://video-js.zencoder.com/oceans-clip.png"
+       data-setup='{"controls":true}'>
+    <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
+    <!--<source src="http://localhost:58026/messi.mp4/messi.mp4" type='video/mp4' />-->
+    <!--<source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />-->
+    <!--<source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />-->
+    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+</video>
+
+
+<video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered">
+
+</video>
+
+
+<script src="//vjs.zencdn.net/4.11/video.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="js/main/videoApp.js"></script>
+</body>
+</html>

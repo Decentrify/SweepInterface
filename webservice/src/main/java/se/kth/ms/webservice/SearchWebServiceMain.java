@@ -70,6 +70,8 @@ public class SearchWebServiceMain extends ComponentDefinition {
     private SearchWebServiceMain myComp;
 //    private String publicBootstrapNode = "cloud7.sics.se";
     private int bindCount = 0; //
+    
+    private static String[] arguments;
 
     public static class PsPortBindResponse extends PortBindResponse {
         public PsPortBindResponse(PortBindRequest request) {
@@ -130,7 +132,7 @@ public class SearchWebServiceMain extends ComponentDefinition {
                             }
 
                             natTraverser = create(NatTraverser.class, new NatTraverserInit(self, publicNodes, MsConfig.getSeed()));
-                            searchMiddleware = create(SearchWebServiceMiddleware.class, Init.NONE);
+                            searchMiddleware = create(SearchWebServiceMiddleware.class, new SearchWebServiceMiddlewareInit(null,arguments));
                             searchPeer = create(SearchPeer.class, new SearchPeerInit(self, CroupierConfiguration.build(),
                                     SearchConfiguration.build(), GradientConfiguration.build(),
                                     ElectionConfiguration.build(), ChunkManagerConfiguration.build(),
@@ -245,8 +247,8 @@ public class SearchWebServiceMain extends ComponentDefinition {
 
         System.setProperty("java.net.preferIPv4Stack", "true");
         try {
-            // We use MsConfig in the NatTraverser component, so we have to 
-            // initialize it.
+            // Keep a copy of arguments and initialize the MsConfig.
+            arguments = args;
             MsConfig.init(args);
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(SearchWebServiceMain.class.getName()).log(Level.SEVERE, null, ex);

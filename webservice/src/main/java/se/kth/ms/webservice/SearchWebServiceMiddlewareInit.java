@@ -15,9 +15,11 @@ import se.sics.kompics.Init;
 public class SearchWebServiceMiddlewareInit extends Init<SearchWebServiceMiddleware> {
 
     private SearchDelegate searchDelegate;
+    private String[] args;
 
-    public SearchWebServiceMiddlewareInit(SearchDelegate searchDelegate) {
+    public SearchWebServiceMiddlewareInit(SearchDelegate searchDelegate, String[] args){
         this.searchDelegate = searchDelegate;
+        this.args = args;
     }
 
     /**
@@ -27,6 +29,22 @@ public class SearchWebServiceMiddlewareInit extends Init<SearchWebServiceMiddlew
         return searchDelegate;
     }
 
+    /**
+     *  
+     * @return arguments.
+     */
+    public String[] getArgs(){
+        return this.args;
+    }
+
+    /**
+     * @param args
+     */
+    public void setArgs(String[] args){
+        
+        this.args = args;
+    }
+    
     /**
      * @param searchDelegate the searchDelegate to set
      */

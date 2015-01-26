@@ -34,11 +34,27 @@ public class SearchWebServiceMiddleware extends ComponentDefinition {
     SearchDelegate searchDelegate;
     SearchWebServiceMiddleware myComp;
     
+    private String[] args;
+    
     public SearchWebServiceMiddleware()
     {
         subscribe(handleStart, control);
         subscribe(searchResponseHandler, uiPort);
         subscribe(addIndexEntryUiResponseHandler, uiPort);
+        myComp = this;
+    }
+    
+    public SearchWebServiceMiddleware(SearchWebServiceMiddlewareInit init){
+        doInit(init);
+        subscribe(handleStart, control);
+        subscribe(searchResponseHandler, uiPort);
+        subscribe(addIndexEntryUiResponseHandler, uiPort);
+    }
+    
+    
+    private void doInit(SearchWebServiceMiddlewareInit init){
+        
+        args = init.getArgs();
         myComp = this;
     }
     
@@ -49,7 +65,12 @@ public class SearchWebServiceMiddleware extends ComponentDefinition {
             try {
                 // Start the Dropwizard REST Services
                 SearchWebService searchWebService = new SearchWebService(myComp);
-                searchWebService.run(new String[]{"server"});
+                if(args != null){
+                    searchWebService.run(args);    
+                }
+                else
+                    searchWebService.run(new String[]{"server"});
+                
                 searchDelegate = searchWebService;
                 
             } catch (Exception ex) {

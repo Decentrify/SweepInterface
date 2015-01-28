@@ -61,7 +61,7 @@ angular.module('searchModule.controllers', [
 
                     scope.player = videojs("video_player", {}, function () {
                     });
-                    scope.player.dimensions(640, 264);
+                    scope.player.dimensions("100%", "100%");
                     scope.player.controls(true);
 
                 }

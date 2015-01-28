@@ -28,7 +28,7 @@ div#videoPlayerDiv{
     margin: 0 auto;
     padding-top : 50px;
     width : 800px;
-    
+    height: 300px
 }
 
 div#searchResultContent li{

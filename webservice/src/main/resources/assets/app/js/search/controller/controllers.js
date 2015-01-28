@@ -131,8 +131,26 @@ angular.module('searchModule.controllers', [
                                     $log.warn("Video Player : Not Initialized.");
                                 }
 
-                            });
-                        
+                            });    
+                    }
+                    
+                    else{
+
+                        // Play the first video.
+                        if ($scope.player != null) {
+
+                            $scope.player.pause();
+                            $scope.player.src(src);
+                            $scope.player.play();
+
+                            // Update the current video resource.
+                            $scope.currentVideoResource = json;
+
+                        }
+
+                        else {
+                            $log.warn("Video Player : Not Initialized.");
+                        }
                     }
                     
                 })

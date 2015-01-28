@@ -49,6 +49,7 @@ angular.module('searchModule.controllers', [
             scope.results = null;
             scope.player = null;
             scope.currentVideoResource = null;
+            scope.previousVideoResource = null;
 
             $log.info("Init Scope Called ... ");
 
@@ -90,82 +91,9 @@ angular.module('searchModule.controllers', [
         }
 
 
-        $scope.playUpdated = function (entry) {
-
-            var filename = entry["fileName"];
-            var url = entry["url"];
-
-            var _ip = "http://localhost:";
-
-            var json = {
-                name: filename,
-                overlayId: parseInt(url)
-            };
-
-            GvodService.play(json)
-
-                .success(function (data, status, headers, config) {
-
-                    // Construct the video source information.
-                    var src = _ip.concat(data).concat("/").concat(filename).concat("/").concat(filename);
-
-                    // Send the GvodService to stop the current buffering the current video resource.
-                    if ($scope.currentVideoResource != null) {
-                        GvodService.stop($scope.currentVideoResource)
-                            
-                            .success(function(){
-                                
-                                // Play the video.
-                                if ($scope.player != null) {
-
-                                    $scope.player.pause();
-                                    $scope.player.src(src);
-                                    $scope.player.play();
-
-                                    // Update the current video resource.
-                                    $scope.currentVideoResource = json;
-                                    
-                                }
-                                
-                                else {
-                                    $log.warn("Video Player : Not Initialized.");
-                                }
-
-                            });    
-                    }
-                    
-                    else{
-
-                        // Play the first video.
-                        if ($scope.player != null) {
-
-                            $scope.player.pause();
-                            $scope.player.src(src);
-                            $scope.player.play();
-
-                            // Update the current video resource.
-                            $scope.currentVideoResource = json;
-
-                        }
-
-                        else {
-                            $log.warn("Video Player : Not Initialized.");
-                        }
-                    }
-                    
-                })
-                .error(function (data, status, header, config) {
-
-                    $log.warn("Play service error -> " + data);
-                })
-
-        };
-
-
         $scope.play = function (entry) {
 
             var filename = entry["fileName"];
-            var linkDesc = entry["linkDesc"];
             var url = entry["url"];
 
             var json = {
@@ -173,55 +101,62 @@ angular.module('searchModule.controllers', [
                 overlayId: parseInt(url)
             };
 
-            if (linkDesc === "Play") {
-
-                GvodService.play(json)
-
-                    .success(function (data, status, headers, config) {
-
-                        // ==== Create Video Link. ====
-
-                        var linkInfo = "/play/".concat(filename).concat("/").concat(url).concat("/").concat(data);
-                        $location.path(linkInfo);
-
-                    })
-                    .error(function (data, status, headers, config) {
-                        // Display User with the error.
-                        $log.info("Unable to fetch port information.");
-                    })
-
+            
+            // STEP 1: Pause the current player as the play action should be immediately visible.
+            if($scope.player != null){
+                $scope.player.pause();
             }
-
-            else if (linkDesc === "Download") {
-
-                $log.info(json);
-
-                GvodService.download(json)
-
-                    .success(function (data, status, headers, config) {
-
-                        $log.info("Gvod initialized for the service.");
-
-                        if (data) {
-                            $log.info(json.name.concat("->").concat(" initialized."));
-                        }
-                        else {
-                            $log.info(json.name.concat("->").concat(" already initialized."));
-                        }
-
-                        entry['linkDesc'] = "Play";
+            
+            // STEP 2: Now stop the current playing video.
+            if($scope.currentVideoResource != null){
+                
+                GvodService.stop($scope.currentVideoResource)
+                    
+                    // STEP 3: On success, play the video fetched. ( Not sure the response in addition to fast clicks. )
+                    .success(function(){
+                        _callPlayRest(json);
                     })
-                    .error(function (data, status, headers, config) {
-                        // Display User with the error.
-                        $log.info(" Issues in GVOD initialization. ");
-                    })
-
             }
-
-            else {
-                $log.info(" Undefined Option. This shouldn't happen. ");
+            
+            else{
+                _callPlayRest(json);
             }
         };
+        
+        
+        function _callPlayRest(parameter){
+
+            var filename = parameter["fileName"];
+            var _ip = "http://localhost:";
+
+            GvodService.play(parameter)
+                
+                // The response data contains port only, but it should contain more meta-data used to differentiate the calls.
+                .success(function(data){
+
+                    // Update the current video resource.
+                    $scope.currentVideoResource = parameter;
+
+                    // STEP 4: Construct video address and play video.
+                    var src = _ip.concat(data).concat("/").concat(filename).concat("/").concat(filename);
+                    
+                    if ($scope.player != null) {
+                        
+                        $scope.player.src(src);
+                        $scope.player.play();
+                    }
+
+                    else {
+                        $log.warn(" UI Video Player : Not Initialized.");
+                    }
+                })
+                
+                // Issue with the video.
+                .error(function(data){
+                    $log.warn(" Play REST Failed -> Issue with gvod-webservice. Video Info: " + angular.toJson(parameter));
+                })
+            
+        }
 
         initScope($scope);
     }])

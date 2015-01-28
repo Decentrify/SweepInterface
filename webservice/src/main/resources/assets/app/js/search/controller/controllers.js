@@ -110,10 +110,12 @@ angular.module('searchModule.controllers', [
             // STEP 2: Now stop the current playing video.
             if($scope.currentVideoResource != null){
                 
+                $log.info("Sending stop to gvod service for: " + angular.toJson($scope.currentVideoResource));
                 GvodService.stop($scope.currentVideoResource)
                     
                     // STEP 3: On success, play the video fetched. ( Not sure the response in addition to fast clicks. )
                     .success(function(){
+                        $log.info("Stop successful for video: " + angular.toJson($scope.currentVideoResource));
                         _callPlayRest(json);
                     })
             }
@@ -126,14 +128,16 @@ angular.module('searchModule.controllers', [
         
         function _callPlayRest(parameter){
 
-            var filename = parameter["fileName"];
+            var filename = parameter["name"];
             var _ip = "http://localhost:";
 
+            $log.info(" Going to send play to service for video: " + angular.toJson(parameter));
             GvodService.play(parameter)
                 
                 // The response data contains port only, but it should contain more meta-data used to differentiate the calls.
                 .success(function(data){
 
+                    $log.info("Successfully received port for video: " + angular.toJson(parameter));
                     // Update the current video resource.
                     $scope.currentVideoResource = parameter;
 

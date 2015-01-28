@@ -7,7 +7,7 @@
 angular.module('searchModule.controllers', [
     'searchModule.services',
     'core-services'
-    ])
+])
 
     .controller('SearchInputController', ['$log', '$location' , 'dataStoreService' , 'searchService', '$scope', function ($log, $location, dataStoreService, searchService, $scope) {
 
@@ -25,41 +25,20 @@ angular.module('searchModule.controllers', [
 
     }])
 
-    .controller('SearchResultController', ['$scope', '$log', '$location','$rootScope', 'dataStoreService', 'GvodService', function ($scope, $log, $location, $rootScope, dataStoreService, GvodService) {
+    .controller('SearchResultController', ['$scope', '$log', '$location', '$rootScope', 'dataStoreService', 'GvodService', function ($scope, $log, $location, $rootScope, dataStoreService, GvodService) {
 
-
-        function _getDummyResults() {
-
-            var results = [
-                {
-                    fileName: "Abhi",
-                    description: " This is dummy description",
-                    url: "0"
-                }
-            ];
-
-            return results;
-        }
-
-        
-        $scope.testMe = function(){
-
-            var linkInfo = "/play/".concat("flash.mp4").concat("/").concat("0").concat("/").concat("58026");
-            $location.path(linkInfo);
-        };
-        
         // Update structure with necessary data.
         function _restructureData(data) {
 
-            if(data != null){
-                
-                var _defaultDesc = "Download";
+            if (data != null) {
+
+                var _defaultDesc = "Play";
 
                 for (var i = 0; i < data.length; i++) {
                     data[i]["linkDesc"] = _defaultDesc;
                 }
             }
-            
+
             return data;
         }
 
@@ -68,16 +47,101 @@ angular.module('searchModule.controllers', [
 
             // Create an object to hold results.
             scope.results = null;
-            
+            scope.player = null;
+            scope.currentVideoResource = null;
+
             $log.info("Init Scope Called ... ");
-            
+
             // Register a watch event, to capture updated results.
-            scope.$watch(dataStoreService.fetchSearchResults, function(data){
+            scope.$watch(dataStoreService.fetchSearchResults, function (data) {
+
                 scope.results = _restructureData(data);
-            })
-            
-            
+
+                if (scope.results && scope.results.length > 0) {
+
+                    scope.player = videojs("video_player", {}, function () {
+                    });
+                    scope.player.dimensions(640, 264);
+                    scope.player.controls(true);
+
+                }
+
+            });
+
+
+            scope.$on('$destroy', function () {
+
+                // Dispose the player. WARNING : Without this, the player doesn't gets initialized again in the system.
+
+                $log.info('Scope Getting Destroyed.');
+                if (scope.player != null) {
+
+                    $log.info('Disposing off the player.');
+                    scope.player.dispose();
+                }
+                
+                
+                if (scope.currentVideoResource != null) {
+                    $log.info('Sending Call to Gvod to stop buffering video resource.');
+                    GvodService.stop(scope.currentVideoResource);
+                }
+            });
+
         }
+
+
+        $scope.playUpdated = function (entry) {
+
+            var filename = entry["fileName"];
+            var url = entry["url"];
+
+            var _ip = "http://localhost:";
+
+            var json = {
+                name: filename,
+                overlayId: parseInt(url)
+            };
+
+            GvodService.play(json)
+
+                .success(function (data, status, headers, config) {
+
+                    // Construct the video source information.
+                    var src = _ip.concat(data).concat("/").concat(filename).concat("/").concat(filename);
+
+                    // Send the GvodService to stop the current buffering the current video resource.
+                    if ($scope.currentVideoResource != null) {
+                        GvodService.stop($scope.currentVideoResource)
+                            
+                            .success(function(){
+                                
+                                // Play the video.
+                                if ($scope.player != null) {
+
+                                    $scope.player.pause();
+                                    $scope.player.src(src);
+                                    $scope.player.play();
+
+                                    // Update the current video resource.
+                                    $scope.currentVideoResource = json;
+                                    
+                                }
+                                
+                                else {
+                                    $log.warn("Video Player : Not Initialized.");
+                                }
+
+                            });
+                        
+                    }
+                    
+                })
+                .error(function (data, status, header, config) {
+
+                    $log.warn("Play service error -> " + data);
+                })
+
+        };
 
 
         $scope.play = function (entry) {
@@ -94,20 +158,20 @@ angular.module('searchModule.controllers', [
             if (linkDesc === "Play") {
 
                 GvodService.play(json)
-                    
+
                     .success(function (data, status, headers, config) {
-                        
+
                         // ==== Create Video Link. ====
-                        
+
                         var linkInfo = "/play/".concat(filename).concat("/").concat(url).concat("/").concat(data);
                         $location.path(linkInfo);
-                        
+
                     })
                     .error(function (data, status, headers, config) {
                         // Display User with the error.
                         $log.info("Unable to fetch port information.");
                     })
-                
+
             }
 
             else if (linkDesc === "Download") {
@@ -119,11 +183,11 @@ angular.module('searchModule.controllers', [
                     .success(function (data, status, headers, config) {
 
                         $log.info("Gvod initialized for the service.");
-                        
-                        if(data){
+
+                        if (data) {
                             $log.info(json.name.concat("->").concat(" initialized."));
                         }
-                        else{
+                        else {
                             $log.info(json.name.concat("->").concat(" already initialized."));
                         }
 
@@ -133,7 +197,7 @@ angular.module('searchModule.controllers', [
                         // Display User with the error.
                         $log.info(" Issues in GVOD initialization. ");
                     })
-                
+
             }
 
             else {
@@ -144,34 +208,34 @@ angular.module('searchModule.controllers', [
         initScope($scope);
     }])
 
-    .controller("VideoController",["$log","$scope",'$routeParams','GvodService',function($log,$scope,$routeParams,GvodService){
+    .controller("VideoController", ["$log", "$scope", '$routeParams', 'GvodService', function ($log, $scope, $routeParams, GvodService) {
 
         // Route Params -> '/play/:name/:uri/:port'
-        
+
         // Step 1: Construct the link information from it.
         // Step 2: Open the video player.
         // Step 3: Start buffering the video.
-        
-        function _initScope(scope){
-            
+
+        function _initScope(scope) {
+
             var _name = $routeParams.name;
             var _uri = $routeParams.uri;
             var _port = $routeParams.port;
-            
+
             var _ip = "http://localhost:";
-            
+
             var _videoResource = {
-                name : _name,
-                overlayId : parseInt(_uri)
+                name: _name,
+                overlayId: parseInt(_uri)
             };
-            
+
             scope.source = _ip.concat(_port).concat("/").concat(_name).concat("/").concat(_name);
             $log.info(scope.source);
-            
-            
-            if(scope.source != null){
 
-                var player = videojs('entry_video', { /* Options */ }, function() {
+
+            if (scope.source != null) {
+
+                var player = videojs('entry_video', { /* Options */ }, function () {
 
                     $log.info('Video Player Initialized.');
 
@@ -179,29 +243,28 @@ angular.module('searchModule.controllers', [
                     this.preload(true);
                     this.controls(true);
                     this.src(scope.source);
-                    this.dimensions(800,400);
+                    this.dimensions(800, 400);
 
                     // == Event Listeners. ==
-                    this.on('ended', function() {
+                    this.on('ended', function () {
                         console.log('File Finished');
                     });
                 });
             }
-            
-            
+
+
             // Register a call when scope destroyed.
-            scope.$on('$destroy', function(){
+            scope.$on('$destroy', function () {
 
                 // Dispose the player. WARNING : Without this, the player doesn't gets initialized again in the system.
-                
+
                 player.dispose();
-                
+
                 $log.info('Scope Getting Destroyed.');
                 GvodService.stop(_videoResource);
-                
+
             });
-            
-            
+
 
         }
 

@@ -5,6 +5,11 @@
 
     <div id="searchResultContent">
 
+        
+        <div id="videoPlayerDiv" ng-show="results && results.length > 0">
+            <video id="video_player" class="video-js vjs-default-skin vjs-big-play-centered"></video>
+        </div>
+        
         <ul>
             <li ng-repeat= "result in results">
 
@@ -14,16 +19,13 @@
                     <div class="thumbnailDiv"></div>
 
                     <div class="metaDataDiv">
-                        <div class="linkDiv"><a href ng-click="play(result)" target="_blank">{{result.linkDesc}}</a></div>
+                        <div class="linkDiv"><a href ng-click="playUpdated(result)">{{result.linkDesc}}</a></div>
                         <div class="additionInfoDiv">Date Created: {{result.uploaded| date:'yyyy-MM-dd'}}</div>
                         <div class="descriptionDiv ellipsis"> {{result.description}} </div>
                     </div>
                 </div>
             </li>
         </ul>
-
-        
-        <button ng-click="testMe()"> CliCk Me .. ! </button>
         
      <div style="clear:both"></div>
 

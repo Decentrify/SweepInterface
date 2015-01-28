@@ -9,10 +9,10 @@ package se.kth.ms.webservice;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
+
+import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.sics.cm.ChunkManagerConfiguration;
@@ -38,6 +38,7 @@ import se.sics.gvod.net.events.PortBindResponse;
 import se.sics.gvod.timer.Timer;
 import se.sics.gvod.timer.java.JavaTimer;
 import se.sics.kompics.*;
+import se.sics.kompics.nat.utils.getip.IpAddrStatus;
 import se.sics.kompics.nat.utils.getip.ResolveIp;
 import se.sics.kompics.nat.utils.getip.ResolveIpPort;
 import se.sics.kompics.nat.utils.getip.events.GetIpRequest;
@@ -71,6 +72,16 @@ public class SearchWebServiceMain extends ComponentDefinition {
 //    private String publicBootstrapNode = "cloud7.sics.se";
     private int bindCount = 0; //
     
+    // Create Options for Command Line Parsing.
+    private Options options = new Options();
+
+    
+    private CommandLine line;
+    private CommandLineParser parser;
+    
+    private String[] dropwizardArgs = null;
+    private String ip;
+    
     private static String[] arguments;
 
     public static class PsPortBindResponse extends PortBindResponse {
@@ -81,6 +92,8 @@ public class SearchWebServiceMain extends ComponentDefinition {
 
     public SearchWebServiceMain() {
 
+        init();
+        
         myComp = this;
         subscribe(handleStart, control);
 
@@ -90,6 +103,50 @@ public class SearchWebServiceMain extends ComponentDefinition {
         connect(resolveIp.getNegative(Timer.class), timer.getPositive(Timer.class));
         subscribe(handleGetIpResponse, resolveIp.getPositive(ResolveIpPort.class));
 
+    }
+    
+    
+    public void init(){
+
+        List<String> argList = new ArrayList<String>();
+        for (int i = 0; i < arguments.length; i++) {
+            if (arguments[i].startsWith("-X")) {
+                argList.add(arguments[i]);
+            }
+        }
+        
+        
+        Option dropwizardOption = new Option("Xserver",true," Dropwizard Server Command.");
+        Option IpOption = new Option("Xip", true,"Specific IP Command");
+        
+        options.addOption(dropwizardOption);
+        options.addOption(IpOption);
+        
+        parser = new GnuParser();
+        
+        try{
+            line = parser.parse(options,argList.toArray(new String[argList.size()]));
+            
+        } catch (ParseException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+        
+        if(line.hasOption(dropwizardOption.getOpt())){
+            
+            String serverLoc = line.getOptionValue(dropwizardOption.getOpt());
+            dropwizardArgs = new String[]{"server",serverLoc};
+            System.out.println("Dropwizard Config File Location. -> " + serverLoc);
+
+        }
+        
+        if(line.hasOption(IpOption.getOpt())){
+            
+            ip = line.getOptionValue(IpOption.getOpt());
+            System.out.println("IP Option Passed. " + ip);
+            
+        }
+        
     }
 
     Handler<Start> handleStart = new Handler<Start>() {
@@ -132,7 +189,7 @@ public class SearchWebServiceMain extends ComponentDefinition {
                             }
 
                             natTraverser = create(NatTraverser.class, new NatTraverserInit(self, publicNodes, MsConfig.getSeed()));
-                            searchMiddleware = create(SearchWebServiceMiddleware.class, new SearchWebServiceMiddlewareInit(null,arguments));
+                            searchMiddleware = create(SearchWebServiceMiddleware.class, new SearchWebServiceMiddlewareInit(null,dropwizardArgs));
                             searchPeer = create(SearchPeer.class, new SearchPeerInit(self, CroupierConfiguration.build(),
                                     SearchConfiguration.build(), GradientConfiguration.build(),
                                     ElectionConfiguration.build(), ChunkManagerConfiguration.build(),
@@ -172,7 +229,20 @@ public class SearchWebServiceMain extends ComponentDefinition {
 //            int myId = (new Random(MsConfig.getSeed())).nextInt();
             int myId = (new Random()).nextInt();
 
-            InetAddress localIp = event.getIpAddress();
+            InetAddress localIp = resolveLocalAddress(ip , event.getAddrs());
+            
+            // Switch to default mode.
+            if(localIp == null){
+                System.out.println(" Unable to resolve local address");
+                System.out.println(" Switching to default mode to fetch IPAddress.");
+                localIp = event.getIpAddress();
+            }
+            
+            // Quit from the system.
+            if(localIp == null){
+                System.exit(-1);
+                throw new RuntimeException("No IPAddress Found. Quitting ... ");
+            }
 
             logger.info("My Local Ip Address returned from ResolveIp is:  " + localIp.getHostName());
             if (localIp.getHostName().equals(bootstrapAddress.getIp().getHostName()))
@@ -193,6 +263,25 @@ public class SearchWebServiceMain extends ComponentDefinition {
             bindPort(Transport.UDT, myUdtAddr);
         }
     };
+    
+    
+    private InetAddress resolveLocalAddress(String ipAddress , List<IpAddrStatus> localAddresses){
+        
+        InetAddress addr = null;
+        
+        // NULL CHECK OR NOT ?
+        if(ipAddress != null){
+            
+            for(IpAddrStatus addrStatus : localAddresses){
+                if(addrStatus.getAddr().getHostAddress().equals(ipAddress)){
+                    addr = addrStatus.getAddr();
+                }
+            }
+            
+        }
+        
+        return addr;
+    }
 
 
     void bindPort(Transport transport, Address address) {

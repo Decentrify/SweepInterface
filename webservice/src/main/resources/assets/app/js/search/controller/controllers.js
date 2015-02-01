@@ -147,6 +147,7 @@ angular.module('searchModule.controllers', [
                     if ($scope.player != null) {
                         
                         $scope.player.src(src);
+                        $scope.player.load();
                         $scope.player.play();
                     }
 

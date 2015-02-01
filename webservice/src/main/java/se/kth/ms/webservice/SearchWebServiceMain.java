@@ -227,8 +227,10 @@ public class SearchWebServiceMain extends ComponentDefinition {
 
             //FIXME: Fix the case in which the different nodes in which the initial seed is generated same.
 //            int myId = (new Random(MsConfig.getSeed())).nextInt();
-            int myId = (new Random()).nextInt();
-
+//            int myId = (new Random()).nextInt();
+            
+            int myId = Integer.MIN_VALUE;   // Testing Purposes.
+            
             InetAddress localIp = resolveLocalAddress(ip , event.getAddrs());
             
             // Switch to default mode.

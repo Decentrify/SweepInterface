@@ -13,7 +13,6 @@
 
     <!-- Modules in the Project.-->
     <modules>
-        <module>webapp</module>
         <module>webservice</module>
     </modules>
 

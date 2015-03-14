@@ -66,8 +66,9 @@ public class SearchWebServiceMiddleware extends ComponentDefinition {
                 // Start the Dropwizard REST Services
                 SearchWebService searchWebService = new SearchWebService(myComp);
                 if(args != null){
-                    String[] newArgs = new String[]{args[0],args[1]};
-                    searchWebService.run(newArgs);
+//                    String[] newArgs = new String[]{args[0],args[1]};
+                    System.out.println(args[1]);
+                    searchWebService.run(args);
                 }
                 else
                     searchWebService.run(new String[]{"server"});

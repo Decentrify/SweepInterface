@@ -43,6 +43,7 @@ import se.sics.kompics.nat.utils.getip.ResolveIp;
 import se.sics.kompics.nat.utils.getip.ResolveIpPort;
 import se.sics.kompics.nat.utils.getip.events.GetIpRequest;
 import se.sics.kompics.nat.utils.getip.events.GetIpResponse;
+import se.sics.ms.common.CommonEncodeDecode;
 import se.sics.ms.common.MsSelfImpl;
 import se.sics.ms.configuration.MsConfig;
 import se.sics.ms.net.MessageFrameDecoder;
@@ -50,6 +51,9 @@ import se.sics.ms.search.SearchPeer;
 import se.sics.ms.search.SearchPeerInit;
 import se.sics.ms.ports.UiPort;
 import se.sics.ms.timeout.IndividualTimeout;
+import se.sics.p2ptoolbox.croupier.api.CroupierSelectionPolicy;
+import se.sics.p2ptoolbox.croupier.core.CroupierConfig;
+import se.sics.p2ptoolbox.gradient.core.GradientConfig;
 
 /**
  * @author alidar
@@ -93,7 +97,7 @@ public class SearchWebServiceMain extends ComponentDefinition {
     public SearchWebServiceMain() {
 
         init();
-        
+        CommonEncodeDecode.init();    // Croupier and Gradient Boot Up.
         myComp = this;
         subscribe(handleStart, control);
 
@@ -188,12 +192,15 @@ public class SearchWebServiceMain extends ComponentDefinition {
                                 System.exit(-1);
                             }
 
+                            CroupierConfig croupierConfig = buildCroupierConfiguration();
+                            GradientConfig gradientConfig = buildGradientConfiguration();
+                            
                             natTraverser = create(NatTraverser.class, new NatTraverserInit(self, publicNodes, MsConfig.getSeed()));
                             searchMiddleware = create(SearchWebServiceMiddleware.class, new SearchWebServiceMiddlewareInit(null,dropwizardArgs));
-                            searchPeer = create(SearchPeer.class, new SearchPeerInit(self, CroupierConfiguration.build(),
+                            searchPeer = create(SearchPeer.class, new SearchPeerInit(self, croupierConfig,
                                     SearchConfiguration.build(), GradientConfiguration.build(),
-                                    ElectionConfiguration.build(), ChunkManagerConfiguration.build(),
-                                    ToVodAddr.bootstrap(bootstrapAddress)));
+                                    ElectionConfiguration.build(), ChunkManagerConfiguration.build(),gradientConfig,
+                                    ToVodAddr.bootstrap(bootstrapAddress),null));
 
                             Component fd = create(FailureDetectorComponent.class, Init.NONE);
 
@@ -221,6 +228,41 @@ public class SearchWebServiceMain extends ComponentDefinition {
                     }
                 }
             };
+
+    private GradientConfig buildGradientConfiguration() {
+        return new GradientConfig(MsConfig.GRADIENT_VIEW_SIZE, MsConfig.GRADIENT_SHUFFLE_PERIOD, MsConfig.GRADIENT_SHUFFLE_LENGTH);
+    }
+
+    /**
+     * @return Croupier Configuration.
+     */
+    private CroupierConfig buildCroupierConfiguration(){
+        
+        CroupierSelectionPolicy croupierPolicy;
+        
+        switch(MsConfig.CROUPIER_SELECTION_POLICY) {
+
+            case HEALER: croupierPolicy = CroupierSelectionPolicy.HEALER;
+                break;
+            
+            case RANDOM: croupierPolicy = CroupierSelectionPolicy.RANDOM;
+                break;
+            
+            case TAIL: croupierPolicy = CroupierSelectionPolicy.TAIL;
+                break;
+            
+            default :
+                croupierPolicy = CroupierSelectionPolicy.HEALER;
+        }
+
+        CroupierConfig croupierConfig = new CroupierConfig(MsConfig.CROUPIER_VIEW_SIZE, MsConfig.CROUPIER_SHUFFLE_PERIOD, 
+               MsConfig.CROUPIER_SHUFFLE_LENGTH, croupierPolicy);
+        
+        
+        return croupierConfig;
+    }
+
+    
     public Handler<GetIpResponse> handleGetIpResponse = new Handler<GetIpResponse>() {
         @Override
         public void handle(GetIpResponse event) {
@@ -229,7 +271,7 @@ public class SearchWebServiceMain extends ComponentDefinition {
 //            int myId = (new Random(MsConfig.getSeed())).nextInt();
 //            int myId = (new Random()).nextInt();
             
-            int myId = Integer.MIN_VALUE;   // Testing Purposes.
+            int myId = Integer.MAX_VALUE;   // Testing Purposes.
             
             InetAddress localIp = resolveLocalAddress(ip , event.getAddrs());
             

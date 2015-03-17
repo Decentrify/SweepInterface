@@ -1,0 +1,23 @@
+http:
+  port: 8080
+  adminPort: 8081
+  gzip:
+    enabled: false
+
+logging:
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+
+  # Logger-specific levels.
+  loggers:
+    # Sets the level for 'com.example.app' to DEBUG.
+    "se.sics.gvod.croupier.Croupier": WARN
+
+  console:
+      enabled: true
+
+  file:
+      enabled: true
+      currentLogFilename: "mylog.log"
+      archivedLogFilenamePattern: "mylog-%d{yyyy-mm-dd}.log.gz"

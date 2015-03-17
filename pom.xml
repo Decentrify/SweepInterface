@@ -14,6 +14,7 @@
     <!-- Modules in the Project.-->
     <modules>
         <module>webservice</module>
+        <module>aggregatorservice</module>
     </modules>
 
     <properties>

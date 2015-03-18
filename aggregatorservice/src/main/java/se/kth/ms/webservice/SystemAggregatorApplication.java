@@ -122,8 +122,7 @@ public class SystemAggregatorApplication extends ComponentDefinition{
 
     
     public Collection<SweepAggregatedPacket> getSystemGlobalState(){
-//        return this.systemGlobalState.values();
-        return getTestSystemStateCollection();
+        return this.systemGlobalState.values();
     }
 
     private Collection<SweepAggregatedPacket> getTestSystemStateCollection(){

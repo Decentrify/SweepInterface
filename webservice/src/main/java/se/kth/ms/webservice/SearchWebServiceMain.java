@@ -130,7 +130,7 @@ public class SearchWebServiceMain extends ComponentDefinition {
         Option IpOption = new Option("Xip", true,"Specific IP Command");
         Option aggregatorIpOption = new Option("XaIp", true, "Aggregator Ip Address");
         Option aggregatorIdOption = new Option("XaId", true, "Aggregator Component Id");
-        Option aggregatorPortOption = new Option("Xaport", true, "Aggregator Port");
+        Option aggregatorPortOption = new Option("XaPort", true, "Aggregator Port");
 
         options.addOption(dropwizardOption);
         options.addOption(IpOption);

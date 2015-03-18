@@ -20,7 +20,6 @@
     </properties>
 
 
-
     <dependencies>
 
         <dependency>
@@ -28,7 +27,7 @@
             <artifactId>dropwizard-core</artifactId>
             <version>${dropwizard.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>se.kth.ms</groupId>
             <artifactId>ms-common</artifactId>
@@ -55,6 +54,26 @@
 
     </dependencies>
 
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>
+                    maven-assembly-plugin
+                </artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>se.kth.ms.webservice.AggregateServiceLauncher</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>

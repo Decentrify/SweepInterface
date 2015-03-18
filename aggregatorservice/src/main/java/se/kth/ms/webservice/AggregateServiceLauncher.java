@@ -72,14 +72,14 @@ public class AggregateServiceLauncher extends ComponentDefinition{
 
         List<String> argList = new ArrayList<String>();
         for (int i = 0; i < arguments.length; i++) {
-            if (arguments[i].startsWith("-A")) {
+            if (arguments[i].startsWith("-X")) {
                 argList.add(arguments[i]);
             }
         }
 
-        Option dropwizardOption = new Option("Aserver",true, " Dropwizard Config Location");
-        Option portOption = new Option("Aport", true, "Port to bind.");
-        Option idOption = new Option("Aid", true, "Node Id");
+        Option dropwizardOption = new Option("Xserver",true, " Dropwizard Config Location");
+        Option portOption = new Option("XaPort", true, "Port to bind.");
+        Option idOption = new Option("XaId", true, "Node Id");
 
         options.addOption(dropwizardOption);
         options.addOption(portOption);

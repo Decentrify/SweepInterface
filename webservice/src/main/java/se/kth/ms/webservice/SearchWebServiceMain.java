@@ -73,7 +73,6 @@ public class SearchWebServiceMain extends ComponentDefinition {
     Positive<UiPort> uiPort = positive(UiPort.class);
     SearchDelegate delegate;
     private SearchWebServiceMain myComp;
-//    private String publicBootstrapNode = "cloud7.sics.se";
     private int bindCount = 0; //
     
     // Create Options for Command Line Parsing.
@@ -87,6 +86,13 @@ public class SearchWebServiceMain extends ComponentDefinition {
     private String ip;
     
     private static String[] arguments;
+
+
+    // Aggregator Component Information.
+    private String aggregatorIp = "cloud7.sics.se";
+    private int aggregatorId = 0;
+    private int aggregatorPort = 54321;
+    private Address aggregatorAddress;
 
     public static class PsPortBindResponse extends PortBindResponse {
         public PsPortBindResponse(PortBindRequest request) {
@@ -122,9 +128,15 @@ public class SearchWebServiceMain extends ComponentDefinition {
         
         Option dropwizardOption = new Option("Xserver",true," Dropwizard Server Command.");
         Option IpOption = new Option("Xip", true,"Specific IP Command");
-        
+        Option aggregatorIpOption = new Option("XaIp", true, "Aggregator Ip Address");
+        Option aggregatorIdOption = new Option("XaId", true, "Aggregator Component Id");
+        Option aggregatorPortOption = new Option("Xaport", true, "Aggregator Port");
+
         options.addOption(dropwizardOption);
         options.addOption(IpOption);
+        options.addOption(aggregatorIpOption);
+        options.addOption(aggregatorIdOption);
+        options.addOption(aggregatorPortOption);
         
         parser = new GnuParser();
         
@@ -150,7 +162,22 @@ public class SearchWebServiceMain extends ComponentDefinition {
             System.out.println("IP Option Passed. " + ip);
             
         }
-        
+
+        if(line.hasOption(aggregatorIpOption.getOpt())){
+            aggregatorIp = line.getOptionValue(aggregatorIpOption.getOpt());
+            logger.info(" Aggregator Ip Option Set: {}", aggregatorIp);
+        }
+
+        if(line.hasOption(aggregatorIdOption.getOpt())){
+            aggregatorId = Integer.parseInt(line.getOptionValue(aggregatorIdOption.getOpt()));
+            logger.info(" Aggregator Id Option Set: {}", aggregatorId);
+        }
+
+        if(line.hasOption(aggregatorPortOption.getOpt())){
+            aggregatorPort = Integer.parseInt(line.getOptionValue(aggregatorPortOption.getOpt()));
+            logger.info(" Aggregator Port Option Set: {}", aggregatorPort);
+        }
+
     }
 
     Handler<Start> handleStart = new Handler<Start>() {
@@ -194,13 +221,14 @@ public class SearchWebServiceMain extends ComponentDefinition {
 
                             CroupierConfig croupierConfig = buildCroupierConfiguration();
                             GradientConfig gradientConfig = buildGradientConfiguration();
+                            aggregatorAddress = getAggregatorAddress();
                             
                             natTraverser = create(NatTraverser.class, new NatTraverserInit(self, publicNodes, MsConfig.getSeed()));
                             searchMiddleware = create(SearchWebServiceMiddleware.class, new SearchWebServiceMiddlewareInit(null,dropwizardArgs));
                             searchPeer = create(SearchPeer.class, new SearchPeerInit(self, croupierConfig,
                                     SearchConfiguration.build(), GradientConfiguration.build(),
                                     ElectionConfiguration.build(), ChunkManagerConfiguration.build(),gradientConfig,
-                                    ToVodAddr.bootstrap(bootstrapAddress),null));
+                                    ToVodAddr.bootstrap(bootstrapAddress),  (aggregatorAddress!= null) ? ToVodAddr.systemAddr(aggregatorAddress) : null ));
 
                             Component fd = create(FailureDetectorComponent.class, Init.NONE);
 
@@ -228,6 +256,29 @@ public class SearchWebServiceMain extends ComponentDefinition {
                     }
                 }
             };
+
+
+
+    /**
+     * Based on the parameters passed, construct the aggregator address.
+     * @return Aggregator Address.
+     */
+    private Address getAggregatorAddress(){
+
+        Address aggregatorAddress = null;
+        try {
+
+            InetAddress ipAddr = InetAddress.getByName(aggregatorIp);
+            aggregatorAddress = new Address(ipAddr, aggregatorPort, aggregatorId);
+
+        }
+        catch (UnknownHostException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return aggregatorAddress;
+    }
+
 
     private GradientConfig buildGradientConfiguration() {
         return new GradientConfig(MsConfig.GRADIENT_VIEW_SIZE, MsConfig.GRADIENT_SHUFFLE_PERIOD, MsConfig.GRADIENT_SHUFFLE_LENGTH);
@@ -307,7 +358,7 @@ public class SearchWebServiceMain extends ComponentDefinition {
             bindPort(Transport.UDT, myUdtAddr);
         }
     };
-    
+
     
     private InetAddress resolveLocalAddress(String ipAddress , List<IpAddrStatus> localAddresses){
         

@@ -39,7 +39,8 @@ public class AggregatorWebService extends Service<Configuration> {
     public void run(Configuration configuration, Environment environment) throws Exception {
         
         logger.info("Service Run Method invoked.");
-          environment.addProvider(new GlobalStateResource());
+        environment.addProvider(new GlobalStateResource());
+        environment.addProvider(new Handshake());
 
         /*
          * To allow cross orign resource request from angular js client
@@ -57,7 +58,7 @@ public class AggregatorWebService extends Service<Configuration> {
     public static class GlobalStateResource {
 
         @GET
-        public Response removeVideo() {
+        public Response getGlobalStateResource() {
             Collection<SweepAggregatedPacket> stateMap = application.getSystemGlobalState();
             
             if(stateMap == null){
@@ -66,6 +67,15 @@ public class AggregatorWebService extends Service<Configuration> {
             return Response.status(Response.Status.OK).entity(stateMap).build();
         }
     }
-    
+
+
+    @Path("/handshake")
+    @Produces(MediaType.APPLICATION_JSON)
+    public static class Handshake {
+        @GET
+        public Response removeVideo() {
+            return Response.status(Response.Status.OK).entity(true).build();
+        }
+    }
     
 }

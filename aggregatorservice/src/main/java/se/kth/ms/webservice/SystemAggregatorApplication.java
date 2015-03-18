@@ -47,8 +47,9 @@ public class SystemAggregatorApplication extends ComponentDefinition{
         
         globalAggregator = create(GlobalAggregatorComponent.class, new GlobalAggregatorComponentInit(timeout));
         connect(globalAggregator.getNegative(Timer.class), timerPositive);
-        connect(globalAggregator.getNegative(VodNetwork.class), networkPort, new MsgDestFilterNodeId(aggregatorAddress.getId()));
-        
+//        connect(globalAggregator.getNegative(VodNetwork.class), networkPort, new MsgDestFilterNodeId(aggregatorAddress.getId()));
+        connect(globalAggregator.getNegative(VodNetwork.class), networkPort);
+
         subscribe(globalStateHandler, globalAggregator.getPositive(GlobalAggregatorPort.class));
         subscribe(readyHandler, globalAggregator.getPositive(GlobalAggregatorPort.class));
     }
@@ -78,8 +79,9 @@ public class SystemAggregatorApplication extends ComponentDefinition{
         @Override
         public void handle(GlobalState event) {
 
-            logger.info("Received Aggregated State Packet Map");
+
             Map<VodAddress, AggregatedStatePacket> map = event.getStatePacketMap();
+            logger.info("Received Aggregated State Packet Map with size: " + map.size());
             systemGlobalState.clear();
             
             for(Map.Entry<VodAddress, AggregatedStatePacket> entry : map.entrySet()){

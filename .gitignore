@@ -51,3 +51,4 @@ lib
 *.log*
 /webservice/target/
 webapp/target/
+aggregatorservice/target/

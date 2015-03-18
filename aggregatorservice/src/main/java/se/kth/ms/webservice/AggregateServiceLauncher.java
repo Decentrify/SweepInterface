@@ -1,5 +1,6 @@
 package se.kth.ms.webservice;
 
+import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.sics.gvod.address.Address;
@@ -18,6 +19,8 @@ import se.sics.ms.net.MessageFrameDecoder;
 import se.sics.p2ptoolbox.aggregator.api.msg.Ready;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -30,6 +33,7 @@ public class AggregateServiceLauncher extends ComponentDefinition{
     private int port = 58223; // Default Value.
     private Logger logger = LoggerFactory.getLogger(AggregateServiceLauncher.class);
     private static String[] arguments = null;
+    private String[] dropwizardArgs= null;
     private int id =0;
     private int seed = 1234;
     
@@ -39,19 +43,24 @@ public class AggregateServiceLauncher extends ComponentDefinition{
     Component application;      // Use this reference and invoke direct methods on it.
     
     private Address selfAddress;
-    
+
+    // Command Line Parsers.
+    private Options options = new Options();
+    private CommandLine line;
+    private CommandLineParser parser;
+
+
     public AggregateServiceLauncher(){
         
         init();
         CommonEncodeDecode.init();
         subscribe(startHandler, control);
-        
+
         timer = create(JavaTimer.class, Init.NONE);
         resolveIp = create(ResolveIp.class, Init.NONE);
 
         connect(resolveIp.getNegative(Timer.class), timer.getPositive(Timer.class));
         subscribe(handleGetIpResponse, resolveIp.getPositive(ResolveIpPort.class));
-        
         
     }
 
@@ -61,6 +70,50 @@ public class AggregateServiceLauncher extends ComponentDefinition{
      */
     private void init() {
 
+        List<String> argList = new ArrayList<String>();
+        for (int i = 0; i < arguments.length; i++) {
+            if (arguments[i].startsWith("-A")) {
+                argList.add(arguments[i]);
+            }
+        }
+
+        Option dropwizardOption = new Option("Aserver",true, " Dropwizard Config Location");
+        Option portOption = new Option("Aport", true, "Port to bind.");
+        Option idOption = new Option("Aid", true, "Node Id");
+
+        options.addOption(dropwizardOption);
+        options.addOption(portOption);
+        options.addOption(idOption);
+
+        parser = new GnuParser();
+
+        try{
+            line = parser.parse(options,argList.toArray(new String[argList.size()]));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Kompics.shutdown();
+        }
+
+        if(line.hasOption(dropwizardOption.getOpt())){
+
+            String serverLoc = line.getOptionValue(dropwizardOption.getOpt());
+            dropwizardArgs = new String[]{"server",serverLoc};
+            System.out.println("Dropwizard Config File Location. -> " + serverLoc);
+        }
+
+
+        if(line.hasOption(portOption.getOpt())){
+
+            port = Integer.parseInt(line.getOptionValue(portOption.getOpt()));
+            logger.debug("User Defined Port: {}", port );
+        }
+
+        if(line.hasOption(dropwizardOption.getOpt())){
+
+            id = Integer.parseInt(line.getOptionValue(idOption.getOpt()));
+            logger.debug("User defined Id for the global aggregator: {}", id);
+        }
     }
     
     
@@ -108,21 +161,30 @@ public class AggregateServiceLauncher extends ComponentDefinition{
                 System.exit(-1);
             } else {
                 selfAddress = resp.boundAddress;
-                phase3();
+                phase3(selfAddress);
             }
         }
     };
 
+    Handler<Fault> faultHandler = new Handler<Fault>() {
+        @Override
+        public void handle(Fault fault) {
+            logger.warn("Received fault from the child component.");
+            logger.warn(fault.getFault().getMessage());
+            Kompics.shutdown();
+        }
+    };
 
 
-    private void phase3(){
+    private void phase3(Address aggregatorAddress){
 
         logger.info("phase 3: trying to bring up the aggregator component.");
-        application = create(SystemAggregatorApplication.class, new SystemAggregatorApplicationInit(arguments) );
+        application = create(SystemAggregatorApplication.class, new SystemAggregatorApplicationInit(dropwizardArgs, aggregatorAddress) );
 
         connect(application.getNegative(Timer.class), timer.getPositive(Timer.class));
         connect(application.getNegative(VodNetwork.class), network.getPositive(VodNetwork.class));
         subscribe(readyEventHandler, application.getPositive(AggregatorApplicationPort.class));
+        subscribe(faultHandler, application.getControl());
 
         trigger(Start.event, application.control());
     }
@@ -134,14 +196,9 @@ public class AggregateServiceLauncher extends ComponentDefinition{
         public void handle(Ready event) {
             logger.info("Received the ready event from the sweep aggregator application.");
             logger.info("Time to boot up the webservice.");
-            phase4();
         }
     };
 
-    
-    private void phase4() {
-        logger.debug("At this point Aggregator Wrapper is ready.");
-    }
 
 
     private static class BootstrapPortBind {

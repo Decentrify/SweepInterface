@@ -1,6 +1,6 @@
 http:
-  port: 8080
-  adminPort: 8081
+  port: 9100
+  adminPort: 9101
   gzip:
     enabled: false
 

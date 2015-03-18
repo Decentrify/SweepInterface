@@ -2,6 +2,8 @@ package se.kth.ms.webservice;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import se.sics.gvod.address.Address;
+import se.sics.gvod.filters.MsgDestFilterNodeId;
 import se.sics.gvod.net.VodAddress;
 import se.sics.gvod.net.VodNetwork;
 import se.sics.gvod.timer.Timer;
@@ -14,9 +16,9 @@ import se.sics.p2ptoolbox.aggregator.api.port.GlobalAggregatorPort;
 import se.sics.p2ptoolbox.aggregator.core.GlobalAggregatorComponent;
 import se.sics.p2ptoolbox.aggregator.core.GlobalAggregatorComponentInit;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Receives and interprets the updates from the GlobalAggregator Application.
@@ -24,7 +26,7 @@ import java.util.Map;
  */
 public class SystemAggregatorApplication extends ComponentDefinition{
     
-    private Map<VodAddress, SweepAggregatedPacket> systemGlobalState;
+    private ConcurrentMap<VodAddress, SweepAggregatedPacket> systemGlobalState;
     private Logger logger = LoggerFactory.getLogger(SystemAggregatorApplication.class);
     private Component globalAggregator;
     private long timeout = 5000;
@@ -35,7 +37,9 @@ public class SystemAggregatorApplication extends ComponentDefinition{
     private SystemAggregatorApplication myComp;
     
     private String[] arguments;
-    
+
+    private Address aggregatorAddress;
+
     public SystemAggregatorApplication(SystemAggregatorApplicationInit init){
         
         doInit(init);
@@ -43,7 +47,7 @@ public class SystemAggregatorApplication extends ComponentDefinition{
         
         globalAggregator = create(GlobalAggregatorComponent.class, new GlobalAggregatorComponentInit(timeout));
         connect(globalAggregator.getNegative(Timer.class), timerPositive);
-        connect(globalAggregator.getNegative(VodNetwork.class), networkPort);
+        connect(globalAggregator.getNegative(VodNetwork.class), networkPort, new MsgDestFilterNodeId(aggregatorAddress.getId()));
         
         subscribe(globalStateHandler, globalAggregator.getPositive(GlobalAggregatorPort.class));
         subscribe(readyHandler, globalAggregator.getPositive(GlobalAggregatorPort.class));
@@ -54,9 +58,10 @@ public class SystemAggregatorApplication extends ComponentDefinition{
     public void doInit(SystemAggregatorApplicationInit init){
         
         logger.info("init");
-        systemGlobalState = new HashMap<VodAddress, SweepAggregatedPacket>();
+        systemGlobalState = new ConcurrentHashMap<VodAddress, SweepAggregatedPacket>();
         myComp = this;
         arguments = init.args;
+        aggregatorAddress = init.aggregatorAddress;
     }
     
     Handler<Start> startHandler = new Handler<Start>() {
@@ -65,17 +70,6 @@ public class SystemAggregatorApplication extends ComponentDefinition{
             
             logger.debug("System Application for capturing aggregated data booted up.");
             logger.info("Boot the webservice from here.");
-            
-            AggregatorWebService service = new AggregatorWebService(myComp);
-            try {
-                
-                arguments = arguments != null ? arguments : new String[]{"server"};
-                service.run(arguments);
-                
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException(" Unable to start the webservice for aggregator.");
-            }
         }
     };
     
@@ -105,12 +99,42 @@ public class SystemAggregatorApplication extends ComponentDefinition{
         @Override
         public void handle(Ready event) {
             logger.debug("Global Aggregator Component Ready");
+            startWebService();
             trigger(new Ready(), applicationPort);
         }
     };
-    
+
+
+    private void startWebService(){
+
+        AggregatorWebService service = new AggregatorWebService(myComp);
+        try {
+            arguments = arguments != null ? arguments : new String[]{"server"};
+            service.run(arguments);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(" Unable to start the webservice for aggregator.");
+        }
+    }
+
     
     public Collection<SweepAggregatedPacket> getSystemGlobalState(){
-        return this.systemGlobalState.values();
+//        return this.systemGlobalState.values();
+        return getTestSystemStateCollection();
     }
+
+    private Collection<SweepAggregatedPacket> getTestSystemStateCollection(){
+
+        List<SweepAggregatedPacket> list = new ArrayList<SweepAggregatedPacket>();
+
+        list.add(new SweepAggregatedPacket(100, 0,0, 0));
+        list.add(new SweepAggregatedPacket(101, 0,0, 3));
+        list.add(new SweepAggregatedPacket(102, 0,0, 4));
+        list.add(new SweepAggregatedPacket(104, 0,0, 2));
+        list.add(new SweepAggregatedPacket(109, 0,0, 1));
+
+        return list;
+    }
+
 }

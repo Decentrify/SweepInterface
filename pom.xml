@@ -24,6 +24,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.gvod.version>0.0.1-SNAPSHOT</project.gvod.version>
         <jetty.version>8.1.10.v20130312</jetty.version>
+        <sweep.launcher.version>1.0-SNAPSHOT</sweep.launcher.version>
     </properties>
 
 

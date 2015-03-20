@@ -17,6 +17,7 @@
     <properties>
         <dropwizard.version>0.6.2</dropwizard.version>
         <global.aggregator.version>1.0-SNAPSHOT</global.aggregator.version>
+        <sweep.aggregator.version>1.0-SNAPSHOT</sweep.aggregator.version>
     </properties>
 
 
@@ -28,6 +29,19 @@
             <version>${dropwizard.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>se.kth.ms</groupId>
+            <artifactId>local-aggregator</artifactId>
+            <version>${sweep.aggregator.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>se.kth.ms</groupId>
+            <artifactId>launch</artifactId>
+            <version>${sweep.launcher.version}</version>
+        </dependency>
+        
+        
         <dependency>
             <groupId>se.kth.ms</groupId>
             <artifactId>ms-common</artifactId>

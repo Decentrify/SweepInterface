@@ -14,7 +14,7 @@ import se.sics.kompics.nat.utils.getip.ResolveIp;
 import se.sics.kompics.nat.utils.getip.ResolveIpPort;
 import se.sics.kompics.nat.utils.getip.events.GetIpRequest;
 import se.sics.kompics.nat.utils.getip.events.GetIpResponse;
-import se.sics.ms.common.CommonEncodeDecode;
+import se.sics.ms.launch.CommonEncodeDecode;
 import se.sics.ms.net.MessageFrameDecoder;
 import se.sics.p2ptoolbox.aggregator.api.msg.Ready;
 

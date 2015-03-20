@@ -34,6 +34,12 @@
         </dependency>
 
         <dependency>
+            <groupId>se.kth.ms</groupId>
+            <artifactId>launch</artifactId>
+            <version>${sweep.launcher.version}</version>
+        </dependency>
+        
+        <dependency>
             <groupId>se.sics.p2ptoolbox.croupier</groupId>
             <artifactId>croupier-api</artifactId>
             <version>${croupier.version}</version>

@@ -2,13 +2,13 @@ package se.kth.ms.webservice;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import se.kth.ms.webmodel.SimpleDataModel;
 import se.sics.gvod.address.Address;
-import se.sics.gvod.filters.MsgDestFilterNodeId;
 import se.sics.gvod.net.VodAddress;
 import se.sics.gvod.net.VodNetwork;
 import se.sics.gvod.timer.Timer;
 import se.sics.kompics.*;
-import se.sics.ms.types.SweepAggregatedPacket;
+import se.sics.ms.aggregator.data.SweepAggregatedPacket;
 import se.sics.p2ptoolbox.aggregator.api.model.AggregatedStatePacket;
 import se.sics.p2ptoolbox.aggregator.api.msg.GlobalState;
 import se.sics.p2ptoolbox.aggregator.api.msg.Ready;
@@ -30,6 +30,7 @@ public class SystemAggregatorApplication extends ComponentDefinition{
     private Logger logger = LoggerFactory.getLogger(SystemAggregatorApplication.class);
     private Component globalAggregator;
     private long timeout = 5000;
+    private long windowTimeout = 10000;
     
     private Positive<VodNetwork> networkPort = requires(VodNetwork.class);
     private Positive<Timer> timerPositive = requires(Timer.class);
@@ -45,7 +46,7 @@ public class SystemAggregatorApplication extends ComponentDefinition{
         doInit(init);
         subscribe(startHandler, control);
         
-        globalAggregator = create(GlobalAggregatorComponent.class, new GlobalAggregatorComponentInit(timeout));
+        globalAggregator = create(GlobalAggregatorComponent.class, new GlobalAggregatorComponentInit(timeout, windowTimeout));
         connect(globalAggregator.getNegative(Timer.class), timerPositive);
 //        connect(globalAggregator.getNegative(VodNetwork.class), networkPort, new MsgDestFilterNodeId(aggregatorAddress.getId()));
         connect(globalAggregator.getNegative(VodNetwork.class), networkPort);
@@ -81,7 +82,7 @@ public class SystemAggregatorApplication extends ComponentDefinition{
 
 
             Map<VodAddress, AggregatedStatePacket> map = event.getStatePacketMap();
-            logger.info("Received Aggregated State Packet Map with size: " + map.size());
+            logger.info("Received Aggregated State Packet Map with size: {}" , map.size());
             systemGlobalState.clear();
             
             for(Map.Entry<VodAddress, AggregatedStatePacket> entry : map.entrySet()){
@@ -109,6 +110,7 @@ public class SystemAggregatorApplication extends ComponentDefinition{
 
     private void startWebService(){
 
+        logger.info(" Start Web Service Method invoked. ... ");
         AggregatorWebService service = new AggregatorWebService(myComp);
         try {
             arguments = arguments != null ? arguments : new String[]{"server"};
@@ -125,17 +127,11 @@ public class SystemAggregatorApplication extends ComponentDefinition{
         return this.systemGlobalState.values();
     }
 
-    private Collection<SweepAggregatedPacket> getTestSystemStateCollection(){
-
-        List<SweepAggregatedPacket> list = new ArrayList<SweepAggregatedPacket>();
-
-        list.add(new SweepAggregatedPacket(100, 0,0, 0));
-        list.add(new SweepAggregatedPacket(101, 0,0, 3));
-        list.add(new SweepAggregatedPacket(102, 0,0, 4));
-        list.add(new SweepAggregatedPacket(104, 0,0, 2));
-        list.add(new SweepAggregatedPacket(109, 0,0, 1));
-
-        return list;
+    public Collection<SimpleDataModel> getStateInSimpleDataModel(){
+        return SystemAggregatorDataModelBuilder.getSimpleDataModel(systemGlobalState);
     }
+    
+    
+    
 
 }

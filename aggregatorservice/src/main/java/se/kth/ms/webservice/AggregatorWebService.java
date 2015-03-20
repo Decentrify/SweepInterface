@@ -7,14 +7,13 @@ import com.yammer.dropwizard.config.Environment;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.sics.gvod.net.VodAddress;
-import se.sics.ms.types.SweepAggregatedPacket;
+import se.kth.ms.webmodel.SimpleDataModel;
+import se.sics.ms.aggregator.data.SweepAggregatedPacket;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
-import java.util.Map;
 
 /**
  * Main aggregator webservice.
@@ -68,6 +67,23 @@ public class AggregatorWebService extends Service<Configuration> {
         }
     }
 
+    @Path("/systemsimplemodel")
+    @Produces(MediaType.APPLICATION_JSON)
+    public static class SimpleDataModelResource {
+
+        @GET
+        public Response getGlobalStateResource() {
+            Collection<SimpleDataModel> simpleModelCollection = application.getStateInSimpleDataModel();
+
+            if(simpleModelCollection == null){
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Found Map with null values").build();
+            }
+            return Response.status(Response.Status.OK).entity(simpleModelCollection).build();
+        }
+    }
+    
+    
+    
 
     @Path("/handshake")
     @Produces(MediaType.APPLICATION_JSON)

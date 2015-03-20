@@ -40,7 +40,7 @@ public class AggregatorWebService extends Service<Configuration> {
         logger.info("Service Run Method invoked.");
         environment.addProvider(new GlobalStateResource());
         environment.addProvider(new Handshake());
-
+        environment.addProvider(new SimpleDataModelResource());
         /*
          * To allow cross orign resource request from angular js client
          */

@@ -62,7 +62,8 @@ public class SearchWebService extends Service<Configuration> implements SearchDe
     @Override
     public void initialize(Bootstrap<Configuration> bootstrap)
     {
-        bootstrap.addBundle(new AssetsBundle("/assets/","/webapp","app/SweepMain.html"));
+//        bootstrap.addBundle(new AssetsBundle("/assets/","/webapp","app/SweepMain.html"));
+        bootstrap.addBundle(new AssetsBundle("/interface/","/webapp/"));
 //        bootstrap.setName("dw-server"); // name must match the yaml config file
     }
 

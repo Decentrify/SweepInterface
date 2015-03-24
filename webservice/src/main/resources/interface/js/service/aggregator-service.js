@@ -5,12 +5,12 @@
 
 angular.module('app')
 
-    .service('aggregatorService',['$log','$http', function($log, $http){
+    .service('aggregatorService',['$log','$http','$location', function($log, $http, $location){
 
         // Default Objects.
         var _defaultMethod = 'PUT';
         var _defaultHeader = {'Content-Type': 'application/json'};
-        var _defaultIp = "http://localhost:9100";
+        var _defaultIp = "http://" + $location.host() + (":9100");
 
 
         function _getPromiseObject(method, url, headers, data){

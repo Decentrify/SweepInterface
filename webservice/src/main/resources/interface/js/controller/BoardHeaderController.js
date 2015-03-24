@@ -24,6 +24,7 @@ angular.module('app')
                 common.routeTo('/search/'+ searchTerm);
             }
         };
+
         _initScope($scope);
     }])
 

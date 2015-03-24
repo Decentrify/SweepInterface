@@ -12,7 +12,7 @@ angular.module("app")
 
         var _defaultPrefix = "http://";
         var _defaultHost = "localhost";
-        var _defaultPort = "8100";
+        var _defaultPort = "18080";
         var _serverName = "localhost";
         var _defaultContentType = "application/json";
 

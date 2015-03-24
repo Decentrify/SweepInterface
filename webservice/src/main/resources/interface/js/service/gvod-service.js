@@ -75,7 +75,8 @@ angular.module("app")
                 $log.info("Firing Fetch Files call to server at port: " + server.port);
                 var method = "GET";
                 var url = _getUrl(_defaultPrefix,server,"files");
-
+                $log.info("Url Constructed : " + url);
+                
                 return _getPromiseObject(method,url,_defaultContentType);
             },
 

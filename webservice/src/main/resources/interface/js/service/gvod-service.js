@@ -8,10 +8,10 @@
 
 angular.module("app")
 
-    .service("gvodService",['$log','$http','$rootScope',function($log, $http, $rootScope){
+    .service("gvodService",['$log','$http','$location','$rootScope',function($log, $http, $location, $rootScope){
 
         var _defaultPrefix = "http://";
-        var _defaultHost = "localhost";
+        var _defaultHost = $location.host();
         var _defaultPort = "18080";
         var _serverName = "localhost";
         var _defaultContentType = "application/json";

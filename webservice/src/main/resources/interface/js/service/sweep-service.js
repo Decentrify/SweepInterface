@@ -6,14 +6,14 @@
 // === SWEEP WEBSERVICE === //
 
 angular.module('app')
-    .service('sweepService',['$log','$http',function($log,$http){
+    .service('sweepService',['$log','$http','$location', function($log,$http, $location){
 
         
         // Default Objects.
         
         var _defaultMethod = 'PUT';
         var _defaultHeader = {'Content-Type': 'application/json'};
-        var _defaultIp = "http://localhost:18180";
+        var _defaultIp = "http://"+ $location.host()+ ":18180";
         
         
         function _getPromiseObject(method, url, headers, data){

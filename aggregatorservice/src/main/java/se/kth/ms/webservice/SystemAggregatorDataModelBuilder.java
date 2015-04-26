@@ -1,11 +1,11 @@
 package se.kth.ms.webservice;
 
 import se.kth.ms.webmodel.SimpleDataModel;
-import se.sics.gvod.net.VodAddress;
 import se.sics.ms.aggregator.SearchComponentUpdate;
 import se.sics.ms.aggregator.data.ComponentUpdate;
 import se.sics.ms.aggregator.data.SweepAggregatedPacket;
 import se.sics.ms.election.aggregation.ElectionLeaderComponentUpdate;
+import se.sics.p2ptoolbox.util.network.impl.BasicAddress;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +19,11 @@ import java.util.Map;
 public class SystemAggregatorDataModelBuilder {
     
 
-    public static List<SimpleDataModel> getSimpleDataModel(Map<VodAddress, SweepAggregatedPacket> globalStateMap){
+    public static List<SimpleDataModel> getSimpleDataModel(Map<BasicAddress, SweepAggregatedPacket> globalStateMap){
         
         List<SimpleDataModel> sdmList = new ArrayList<SimpleDataModel>();
         
-        for(VodAddress src: globalStateMap.keySet()){
+        for(BasicAddress src: globalStateMap.keySet()){
             
             SimpleDataModel sdm = new SimpleDataModel(src.getId());
             Map<Class, Map<Integer,ComponentUpdate>> componentDataMap = globalStateMap.get(src).getComponentDataMap();

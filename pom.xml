@@ -20,11 +20,13 @@
     <properties>
         <java.compiler.version>1.6</java.compiler.version>
         <nattraverser.version>1.2-SNAPSHOT</nattraverser.version>
-        <kompics.version>0.6.0-SNAPSHOT</kompics.version>
+        <kompics.version>0.8.0-SNAPSHOT</kompics.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.gvod.version>0.0.1-SNAPSHOT</project.gvod.version>
         <jetty.version>8.1.10.v20130312</jetty.version>
         <sweep.launcher.version>1.0-SNAPSHOT</sweep.launcher.version>
+        <election.version>1.1-SNAPSHOT</election.version>
+        <chunk.manager.version>1.1-SNAPSHOT</chunk.manager.version>
     </properties>
 
 
@@ -85,6 +87,19 @@
     <dependencies>
 
         <dependency>
+            <groupId>se.sics.p2ptoolbox.election</groupId>
+            <artifactId>election-api</artifactId>
+            <version>${election.version}</version>
+            
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <dependency>
             <groupId>se.kth.ms</groupId>
             <artifactId>ms-search</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -104,10 +119,9 @@
         </dependency>
 
         <dependency>
-            <groupId>se.kth.cm</groupId>
-            <artifactId>chunk-manager</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>se.sics.p2ptoolbox</groupId>
+            <artifactId>cm-core</artifactId>
+            <version>${chunk.manager.version}</version>
 
             <exclusions>
                 <exclusion>
@@ -138,8 +152,8 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
+            <version>4.11</version>
+            <!--<scope>test</scope>-->
         </dependency>
 
     </dependencies>

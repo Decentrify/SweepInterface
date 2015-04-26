@@ -3,11 +3,9 @@ package se.kth.ms.webservice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.kth.ms.webmodel.SimpleDataModel;
-import se.sics.gvod.address.Address;
-import se.sics.gvod.net.VodAddress;
-import se.sics.gvod.net.VodNetwork;
-import se.sics.gvod.timer.Timer;
 import se.sics.kompics.*;
+import se.sics.kompics.network.Network;
+import se.sics.kompics.timer.Timer;
 import se.sics.ms.aggregator.data.SweepAggregatedPacket;
 import se.sics.p2ptoolbox.aggregator.api.model.AggregatedStatePacket;
 import se.sics.p2ptoolbox.aggregator.api.msg.GlobalState;
@@ -15,8 +13,11 @@ import se.sics.p2ptoolbox.aggregator.api.msg.Ready;
 import se.sics.p2ptoolbox.aggregator.api.port.GlobalAggregatorPort;
 import se.sics.p2ptoolbox.aggregator.core.GlobalAggregatorComponent;
 import se.sics.p2ptoolbox.aggregator.core.GlobalAggregatorComponentInit;
+import se.sics.p2ptoolbox.util.network.impl.BasicAddress;
+import se.sics.p2ptoolbox.util.network.impl.DecoratedAddress;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -26,20 +27,19 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class SystemAggregatorApplication extends ComponentDefinition{
     
-    private ConcurrentMap<VodAddress, SweepAggregatedPacket> systemGlobalState;
+    private ConcurrentMap<BasicAddress, SweepAggregatedPacket> systemGlobalState;
     private Logger logger = LoggerFactory.getLogger(SystemAggregatorApplication.class);
     private Component globalAggregator;
     private long timeout = 5000;
     private long windowTimeout = 10000;
     
-    private Positive<VodNetwork> networkPort = requires(VodNetwork.class);
+    private Positive<Network> networkPort = requires(Network.class);
     private Positive<Timer> timerPositive = requires(Timer.class);
     private Negative<AggregatorApplicationPort> applicationPort = provides(AggregatorApplicationPort.class);
     private SystemAggregatorApplication myComp;
     
     private String[] arguments;
-
-    private Address aggregatorAddress;
+    private BasicAddress aggregatorAddress;
 
     public SystemAggregatorApplication(SystemAggregatorApplicationInit init){
         
@@ -48,8 +48,7 @@ public class SystemAggregatorApplication extends ComponentDefinition{
         
         globalAggregator = create(GlobalAggregatorComponent.class, new GlobalAggregatorComponentInit(timeout, windowTimeout));
         connect(globalAggregator.getNegative(Timer.class), timerPositive);
-//        connect(globalAggregator.getNegative(VodNetwork.class), networkPort, new MsgDestFilterNodeId(aggregatorAddress.getId()));
-        connect(globalAggregator.getNegative(VodNetwork.class), networkPort);
+        connect(globalAggregator.getNegative(Network.class), networkPort);
 
         subscribe(globalStateHandler, globalAggregator.getPositive(GlobalAggregatorPort.class));
         subscribe(readyHandler, globalAggregator.getPositive(GlobalAggregatorPort.class));
@@ -60,7 +59,7 @@ public class SystemAggregatorApplication extends ComponentDefinition{
     public void doInit(SystemAggregatorApplicationInit init){
         
         logger.info("init");
-        systemGlobalState = new ConcurrentHashMap<VodAddress, SweepAggregatedPacket>();
+        systemGlobalState = new ConcurrentHashMap<BasicAddress, SweepAggregatedPacket>();
         myComp = this;
         arguments = init.args;
         aggregatorAddress = init.aggregatorAddress;
@@ -81,13 +80,13 @@ public class SystemAggregatorApplication extends ComponentDefinition{
         public void handle(GlobalState event) {
 
 
-            Map<VodAddress, AggregatedStatePacket> map = event.getStatePacketMap();
+            Map<DecoratedAddress, AggregatedStatePacket> map = event.getStatePacketMap();
             logger.info("Received Aggregated State Packet Map with size: {}" , map.size());
             systemGlobalState.clear();
             
-            for(Map.Entry<VodAddress, AggregatedStatePacket> entry : map.entrySet()){
+            for(Map.Entry<DecoratedAddress, AggregatedStatePacket> entry : map.entrySet()){
                 
-                VodAddress address = entry.getKey();
+                BasicAddress address = entry.getKey().getBase();
                 AggregatedStatePacket statePacket = entry.getValue();
                 
                 if(statePacket instanceof SweepAggregatedPacket){

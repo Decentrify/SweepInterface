@@ -16,7 +16,7 @@
 
     <properties>
         <dropwizard.version>0.6.2</dropwizard.version>
-        <global.aggregator.version>1.0-SNAPSHOT</global.aggregator.version>
+        <global.aggregator.version>1.1-SNAPSHOT</global.aggregator.version>
         <sweep.aggregator.version>1.0-SNAPSHOT</sweep.aggregator.version>
     </properties>
 

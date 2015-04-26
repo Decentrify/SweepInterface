@@ -1,7 +1,7 @@
 package se.kth.ms.webservice;
 
-import se.sics.gvod.address.Address;
 import se.sics.kompics.Init;
+import se.sics.p2ptoolbox.util.network.impl.BasicAddress;
 
 /**
  * Init for the System Aggregator Application.
@@ -10,9 +10,9 @@ import se.sics.kompics.Init;
 public class SystemAggregatorApplicationInit extends Init<SystemAggregatorApplication>{
     
     public String[] args;
-    public Address aggregatorAddress;
+    public BasicAddress aggregatorAddress;
     
-    public SystemAggregatorApplicationInit(String args[], Address aggregatorAddress){
+    public SystemAggregatorApplicationInit(String args[], BasicAddress aggregatorAddress){
         this.args = args;
         this.aggregatorAddress = aggregatorAddress;
     }

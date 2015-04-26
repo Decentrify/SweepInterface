@@ -16,12 +16,22 @@ public class SearchWebServiceMiddlewareInit extends Init<SearchWebServiceMiddlew
 
     private SearchDelegate searchDelegate;
     private String[] args;
-
+    private SearchWebServiceConfig config;
+    
     public SearchWebServiceMiddlewareInit(SearchDelegate searchDelegate, String[] args){
         this.searchDelegate = searchDelegate;
         this.args = args;
     }
-
+    
+    public SearchWebServiceMiddlewareInit(SearchWebServiceConfig config){
+        this.config = config;
+    }
+    
+    
+    public SearchWebServiceConfig getConfig(){
+        return this.config;
+    }
+    
     /**
      * @return the searchDelegate
      */

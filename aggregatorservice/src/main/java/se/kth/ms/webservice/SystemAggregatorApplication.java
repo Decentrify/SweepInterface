@@ -13,6 +13,7 @@ import se.sics.p2ptoolbox.aggregator.api.msg.Ready;
 import se.sics.p2ptoolbox.aggregator.api.port.GlobalAggregatorPort;
 import se.sics.p2ptoolbox.aggregator.core.GlobalAggregatorComponent;
 import se.sics.p2ptoolbox.aggregator.core.GlobalAggregatorComponentInit;
+import se.sics.p2ptoolbox.util.config.SystemConfig;
 import se.sics.p2ptoolbox.util.network.impl.BasicAddress;
 import se.sics.p2ptoolbox.util.network.impl.DecoratedAddress;
 
@@ -38,8 +39,8 @@ public class SystemAggregatorApplication extends ComponentDefinition{
     private Negative<AggregatorApplicationPort> applicationPort = provides(AggregatorApplicationPort.class);
     private SystemAggregatorApplication myComp;
     
-    private String[] arguments;
-    private BasicAddress aggregatorAddress;
+    private SystemConfig systemConfig;
+    private AggregatorWebServiceConfig aggregatorConfig;
 
     public SystemAggregatorApplication(SystemAggregatorApplicationInit init){
         
@@ -61,8 +62,8 @@ public class SystemAggregatorApplication extends ComponentDefinition{
         logger.info("init");
         systemGlobalState = new ConcurrentHashMap<BasicAddress, SweepAggregatedPacket>();
         myComp = this;
-        arguments = init.args;
-        aggregatorAddress = init.aggregatorAddress;
+        systemConfig = init.systemConfig;
+        aggregatorConfig = init.aggregatorWebServiceConfig;
     }
     
     Handler<Start> startHandler = new Handler<Start>() {
@@ -110,9 +111,13 @@ public class SystemAggregatorApplication extends ComponentDefinition{
     private void startWebService(){
 
         logger.info(" Start Web Service Method invoked. ... ");
+
         AggregatorWebService service = new AggregatorWebService(myComp);
+        String confLocation = aggregatorConfig.getConfigLocation();
+        logger.info("Location of webservice configuration: {}", confLocation);
+
         try {
-            arguments = arguments != null ? arguments : new String[]{"server"};
+            String[] arguments = confLocation != null ? new String[]{"server",confLocation} : new String[]{"server"};
             service.run(arguments);
 
         } catch (Exception e) {

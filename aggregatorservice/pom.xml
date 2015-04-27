@@ -33,6 +33,12 @@
             <groupId>se.kth.ms</groupId>
             <artifactId>local-aggregator</artifactId>
             <version>${sweep.aggregator.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -66,6 +72,18 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>se.sics.p2ptoolbox.aggregator</groupId>
+            <artifactId>aggregator-network</artifactId>
+            <version>${global.aggregator.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
     </dependencies>
 
 
@@ -81,7 +99,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>se.kth.ms.webservice.AggregateServiceLauncher</mainClass>
+                            <mainClass>se.kth.ms.webservice.AggregateServiceLauncherOld</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

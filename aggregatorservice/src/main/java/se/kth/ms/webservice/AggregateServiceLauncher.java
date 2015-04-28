@@ -10,8 +10,13 @@ import se.sics.kompics.network.netty.NettyInit;
 import se.sics.kompics.network.netty.NettyNetwork;
 import se.sics.kompics.timer.Timer;
 import se.sics.kompics.timer.java.JavaTimer;
+import se.sics.ms.net.SerializerSetup;
 import se.sics.p2ptoolbox.aggregator.api.msg.Ready;
 import se.sics.p2ptoolbox.aggregator.network.AggregatorSerializerSetup;
+import se.sics.p2ptoolbox.chunkmanager.ChunkManagerSerializerSetup;
+import se.sics.p2ptoolbox.croupier.CroupierSerializerSetup;
+import se.sics.p2ptoolbox.election.network.ElectionSerializerSetup;
+import se.sics.p2ptoolbox.gradient.GradientSerializerSetup;
 import se.sics.p2ptoolbox.util.config.SystemConfig;
 import se.sics.p2ptoolbox.util.serializer.BasicSerializerSetup;
 
@@ -60,7 +65,12 @@ public class AggregateServiceLauncher extends ComponentDefinition{
         int currentId = startId;
         BasicSerializerSetup.registerBasicSerializers(currentId);
         currentId += BasicSerializerSetup.serializerIds;
-        AggregatorSerializerSetup.registerSerializers(currentId);
+        currentId = CroupierSerializerSetup.registerSerializers(currentId);
+        currentId = GradientSerializerSetup.registerSerializers(currentId);
+        currentId = ElectionSerializerSetup.registerSerializers(currentId);
+        currentId = AggregatorSerializerSetup.registerSerializers(currentId);
+        currentId = ChunkManagerSerializerSetup.registerSerializers(currentId);
+        SerializerSetup.registerSerializers(currentId);
     }
 
     /**

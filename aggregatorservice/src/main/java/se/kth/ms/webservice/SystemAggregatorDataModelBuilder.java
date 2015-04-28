@@ -1,10 +1,10 @@
 package se.kth.ms.webservice;
 
 import se.kth.ms.webmodel.SimpleDataModel;
-import se.sics.ms.aggregator.SearchComponentUpdate;
 import se.sics.ms.aggregator.data.ComponentUpdate;
 import se.sics.ms.aggregator.data.SweepAggregatedPacket;
-import se.sics.ms.election.aggregation.ElectionLeaderComponentUpdate;
+import se.sics.ms.data.aggregator.ElectionLeaderComponentUpdate;
+import se.sics.ms.data.aggregator.SearchComponentUpdate;
 import se.sics.p2ptoolbox.util.network.impl.BasicAddress;
 
 import java.util.ArrayList;

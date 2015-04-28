@@ -91,7 +91,7 @@ public class SearchWebServiceMain extends ComponentDefinition{
 
         logger.debug("Init of main launch invoked ...");
         logger.debug("Loading the main configuration file");
-        config = ConfigFactory.load("application.conf");
+        config = ConfigFactory.load();
 
         logger.debug("Setting up the serializers");
         registerSerializers(startId);

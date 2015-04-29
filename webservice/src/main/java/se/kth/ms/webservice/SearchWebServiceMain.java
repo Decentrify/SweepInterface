@@ -16,6 +16,7 @@ import se.sics.kompics.timer.java.JavaTimer;
 import se.sics.ms.common.ApplicationSelf;
 import se.sics.ms.configuration.MsConfig;
 import se.sics.ms.net.SerializerSetup;
+import se.sics.ms.ports.UiPort;
 import se.sics.ms.search.SearchPeer;
 import se.sics.ms.search.SearchPeerInit;
 import se.sics.p2ptoolbox.aggregator.network.AggregatorSerializerSetup;
@@ -74,6 +75,7 @@ public class SearchWebServiceMain extends ComponentDefinition{
         
         connect(timer.getPositive(Timer.class), searchPeer.getNegative(Timer.class));
         connect(network.getPositive(Network.class), searchPeer.getNegative(Network.class));
+        connect(searchMiddleware.getPositive(UiPort.class), searchPeer.getNegative(UiPort.class));
 
         logger.debug("All components booted up ...");
 

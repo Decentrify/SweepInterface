@@ -96,6 +96,8 @@ public class SearchWebService extends Service<Configuration> implements SearchDe
         @PUT
         public Response add(AddIndexRequestJSON addRequest)
         {
+
+            System.out.println(" Received add index entry request from with filename :   " + addRequest.getFileName());
             StatusResponseJSON result = new StatusResponseJSON(StatusResponseJSON.ERROR_STRING, null);
             try
             {

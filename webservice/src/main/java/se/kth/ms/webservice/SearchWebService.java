@@ -109,6 +109,7 @@ public class SearchWebService extends Service<Configuration> implements SearchDe
                     if(reason == null)
                     {
                         IndexEntry entry = new IndexEntry(
+                                UUID.randomUUID().toString(),
                                 addRequest.getUrl(),
                                 addRequest.getFileName(),
                                 addRequest.getFileSize(),

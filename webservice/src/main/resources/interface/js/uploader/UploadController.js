@@ -144,10 +144,8 @@ angular.module('app')
 
             });
         }
-
         
-        
-        $scope.submitIndexEntry = function() {
+        $scope.submitIndexEntryOld = function() {
 
             if (this.entryAdditionForm.$valid) {
 
@@ -199,7 +197,72 @@ angular.module('app')
                     })
             }
         };
-        
+
+
+        /**
+         * Submit Index Entries in the
+         * system.
+         */
+        $scope.submitIndexEntry = function(){
+
+            if (this.entryAdditionForm.$valid) {
+
+                var lastSubmitEntry = $scope.indexEntryData;
+                var uploadObj = { name: lastSubmitEntry.fileName, overlayId: parseInt(lastSubmitEntry.url) };
+
+                gvodService.pendingUpload(uploadObj)
+
+                    .then(function(data){
+
+                        $log.debug("gvod pending upload successful");
+
+                        lastSubmitEntry.url = data.overlayId.toString();
+                        return  sweepService.addIndexEntry(lastSubmitEntry);
+
+                    }, function(error){
+
+                        $log.debug("Gvod Upload Failed ... ");
+                        return $q.reject(error);
+                    })
+
+                    .then(function (success) {
+
+                        $log.debug("Sweep successfully added the entries ..");
+                        return gvodService.upload(uploadObj);
+                    },
+                    function (error) {
+
+                        $log.debug("Error pending upload: " + error);
+                        return $q.reject(error);
+                    })
+
+                    // Gvod Upload Result Handling.
+                    .then(function (success) {
+
+                        $log.debug("Index Upload Successful");
+
+                        _houseKeeping($scope.indexEntryData);
+                        _initializeLibrary();
+
+                        AlertService.addAlert({type: 'success', msg: 'Upload Successful.'});
+                    },
+                    function (error) {
+
+                        $log.debug("Upload Unsuccessful" + error);
+                        return $q.reject(error);
+                    })
+
+                    // Exception Handling.
+                    .then(null, function (error) {
+                        AlertService.addAlert({type: 'warning', msg: error});
+                    })
+
+            }
+        };
+
+
+
+
 
         /**
          * Remove Entry from the Library.

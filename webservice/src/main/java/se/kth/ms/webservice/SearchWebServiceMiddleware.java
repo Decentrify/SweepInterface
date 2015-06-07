@@ -20,7 +20,6 @@ import se.sics.ms.events.UiSearchRequest;
 import se.sics.ms.events.UiSearchResponse;
 import se.sics.ms.types.IndexEntry;
 import se.sics.ms.types.SearchPattern;
-import se.sics.ms.ui.UiComponent;
 
 /**
  *
@@ -28,7 +27,7 @@ import se.sics.ms.ui.UiComponent;
  */
 public class SearchWebServiceMiddleware extends ComponentDefinition {
     
-    private final Logger logger = LoggerFactory.getLogger(UiComponent.class);
+    private final Logger logger = LoggerFactory.getLogger(SearchWebServiceMiddleware.class);
     Negative<UiPort> uiPort = negative(UiPort.class);    
     
     SearchDelegate searchDelegate;

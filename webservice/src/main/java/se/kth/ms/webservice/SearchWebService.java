@@ -13,6 +13,7 @@ package se.kth.ms.webservice;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.UUID;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -108,6 +109,7 @@ public class SearchWebService extends Service<Configuration> implements SearchDe
                     if(reason == null)
                     {
                         IndexEntry entry = new IndexEntry(
+                                UUID.randomUUID().toString(),
                                 addRequest.getUrl(),
                                 addRequest.getFileName(),
                                 addRequest.getFileSize(),

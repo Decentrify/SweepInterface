@@ -28,6 +28,7 @@ import se.sics.p2ptoolbox.election.core.ElectionConfig;
 import se.sics.p2ptoolbox.election.network.ElectionSerializerSetup;
 import se.sics.p2ptoolbox.gradient.GradientConfig;
 import se.sics.p2ptoolbox.gradient.GradientSerializerSetup;
+import se.sics.p2ptoolbox.tgradient.TreeGradientConfig;
 import se.sics.p2ptoolbox.util.config.SystemConfig;
 import se.sics.p2ptoolbox.util.serializer.BasicSerializerSetup;
 
@@ -60,6 +61,7 @@ public class SearchWebServiceMain extends ComponentDefinition{
         ElectionConfig electionConfig = new ElectionConfig(config);
         ChunkManagerConfig chunkManagerConfig = new ChunkManagerConfig(config);
         SearchWebServiceConfig webServiceConfig = new SearchWebServiceConfig(config);
+        TreeGradientConfig treeGradientConfig = new TreeGradientConfig(config);
         
         logger.debug(" Loaded the configurations ... ");
         ApplicationSelf applicationSelf = new ApplicationSelf(systemConfig.self);
@@ -69,7 +71,7 @@ public class SearchWebServiceMain extends ComponentDefinition{
         network = create(NettyNetwork.class, new NettyInit(systemConfig.self));
         searchPeer = create(SearchPeer.class, new SearchPeerInit(applicationSelf, systemConfig, croupierConfig,
                 SearchConfiguration.build(), GradientConfiguration.build(),
-                ElectionConfiguration.build(), chunkManagerConfig, gradientConfig, electionConfig ));
+                ElectionConfiguration.build(), chunkManagerConfig, gradientConfig, electionConfig, treeGradientConfig ));
 
         searchMiddleware = create(SearchWebServiceMiddleware.class, new SearchWebServiceMiddlewareInit(webServiceConfig)); // FIX THIS.
         

@@ -18,6 +18,7 @@ import se.sics.ms.events.UiAddIndexEntryResponse;
 import se.sics.ms.ports.UiPort;
 import se.sics.ms.events.UiSearchRequest;
 import se.sics.ms.events.UiSearchResponse;
+import se.sics.ms.types.ApplicationEntry;
 import se.sics.ms.types.IndexEntry;
 import se.sics.ms.types.SearchPattern;
 
@@ -70,8 +71,7 @@ public class SearchWebServiceMiddleware extends ComponentDefinition {
     final Handler<UiSearchResponse> searchResponseHandler = new Handler<UiSearchResponse>() {
         @Override
         public void handle(UiSearchResponse searchResponse) {
-            ArrayList<IndexEntry> results = searchResponse.getResults();
-
+            ArrayList<ApplicationEntry> results = searchResponse.getResults();
             searchDelegate.didSearch(results);
         }
     };

@@ -20,7 +20,7 @@
 
     <properties>
         <croupier.version>1.5-SNAPSHOT</croupier.version>
-        <gradient.version>1.2-SNAPSHOT</gradient.version>
+        <gradient.version>1.4-SNAPSHOT</gradient.version>
         <sweep.netty.version>1.0-SNAPSHOT</sweep.netty.version>
         <dropwizard.version>0.6.2</dropwizard.version>
     </properties>

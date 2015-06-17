@@ -7,6 +7,8 @@
 package se.kth.ms.webservice;
 
 import java.util.ArrayList;
+
+import se.sics.ms.types.ApplicationEntry;
 import se.sics.ms.types.IndexEntry;
 
 /**
@@ -15,7 +17,7 @@ import se.sics.ms.types.IndexEntry;
  */
 public interface SearchDelegate {
     
-    public void didSearch(ArrayList<IndexEntry> results);
+    public void didSearch(ArrayList<ApplicationEntry> results);
     public void didAddIndex();
     public void didFailToAddIndex();
 }

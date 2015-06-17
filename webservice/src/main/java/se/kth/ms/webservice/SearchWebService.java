@@ -5,11 +5,6 @@
  */
 
 package se.kth.ms.webservice;
-
-//import io.dropwizard.Application;
-//import io.dropwizard.Configuration;
-//import io.dropwizard.setup.Bootstrap;
-//import io.dropwizard.setup.Environment;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.EnumSet;
@@ -31,6 +26,7 @@ import com.yammer.dropwizard.config.Configuration;
 import com.yammer.dropwizard.config.Environment;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import se.kth.ms.webservicemodel.*;
+import se.sics.ms.types.ApplicationEntry;
 import se.sics.ms.types.IndexEntry;
 import se.sics.ms.types.SearchPattern;
 
@@ -236,16 +232,14 @@ public class SearchWebService extends Service<Configuration> implements SearchDe
         @GET
         public Response fetchFiles(){
 
-//            System.out.println(" Request Received For Category ... " + jsonRequest.getCategory());
             System.out.println(" Relaying it to the GVod Project.  ");
-//            System.exit(-1);
             return null;
         }
     }
 
 
     @Override
-    public void didSearch(ArrayList<IndexEntry> results)
+    public void didSearch(ArrayList<ApplicationEntry> results)
     {
         if(isWaitForResultInProgress)
         {
@@ -288,12 +282,20 @@ public class SearchWebService extends Service<Configuration> implements SearchDe
             return null;
     }
 
-    ArrayList<SearchIndexResultJSON> convertToSearchIndexResultJSON(ArrayList<IndexEntry> indexList)
+    /**
+     * Convert the search results to the JSON object
+     * which will be sent back to the user.
+     *
+     * @param entryList entry list
+     * @return JSON.
+     */
+    ArrayList<SearchIndexResultJSON> convertToSearchIndexResultJSON(ArrayList<ApplicationEntry> entryList)
     {
         ArrayList<SearchIndexResultJSON> resultList = new ArrayList<SearchIndexResultJSON>();
 
-        for(IndexEntry entry: indexList)
+        for(ApplicationEntry appEntry: entryList)
         {
+            IndexEntry entry = appEntry.getEntry();
             SearchIndexResultJSON convertedEntry = new SearchIndexResultJSON(
                     "",
                     entry.getUrl(),

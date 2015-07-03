@@ -22,6 +22,7 @@
         <croupier.version>1.5-SNAPSHOT</croupier.version>
         <gradient.version>1.4-SNAPSHOT</gradient.version>
         <sweep.netty.version>1.0-SNAPSHOT</sweep.netty.version>
+        <np.version>1.0-SNAPSHOT</np.version>
         <dropwizard.version>0.6.2</dropwizard.version>
     </properties>
 
@@ -50,6 +51,18 @@
             <groupId>se.sics.ms</groupId>
             <artifactId>netty</artifactId>
             <version>${sweep.netty.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>se.kth.ms</groupId>
+            <artifactId>partition-aware</artifactId>
+            <version>${np.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>

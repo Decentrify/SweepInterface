@@ -55,6 +55,8 @@ public class SearchWebServiceMain extends ComponentDefinition{
 
         doInit();
 
+        logger.info("Configuration : {} ", config);
+
         SystemConfig systemConfig = new SystemConfig(config);
         GradientConfig gradientConfig  = new GradientConfig(config);
         CroupierConfig croupierConfig = new CroupierConfig(config);

@@ -212,11 +212,10 @@ angular.module('app')
 
                 gvodService.pendingUpload(uploadObj)
 
-                    .then(function(data){
+                    .then(function(response){
 
                         $log.debug("gvod pending upload successful");
-
-                        lastSubmitEntry.url = data.overlayId.toString();
+                        lastSubmitEntry.url = response.data.overlayId.toString();
                         return  sweepService.addIndexEntry(lastSubmitEntry);
 
                     }, function(error){

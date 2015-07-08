@@ -7,7 +7,7 @@
 
   "sweep":{
     "ip":"193.10.64.85",
-    "port": 30002,
+    "port": 31002,
     "name":"cloud2.sics.se"
   }
 }

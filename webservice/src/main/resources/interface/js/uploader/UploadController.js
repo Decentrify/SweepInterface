@@ -162,6 +162,7 @@ angular.module('app')
 
                         $log.debug("gvod pending upload successful");
                         lastSubmitEntry.url = response.data.overlayId.toString();
+
                         return  sweepService.addIndexEntry(lastSubmitEntry);
 
                     }, function(error){
@@ -173,6 +174,8 @@ angular.module('app')
                     .then(function (success) {
 
                         $log.debug("Sweep successfully added the entries ..");
+
+                        uploadObj.overlayId = parseInt(lastSubmitEntry.url);
                         return gvodService.upload(uploadObj);
                     },
                     function (error) {

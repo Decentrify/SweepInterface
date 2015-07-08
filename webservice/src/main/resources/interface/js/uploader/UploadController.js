@@ -144,60 +144,6 @@ angular.module('app')
 
             });
         }
-        
-        $scope.submitIndexEntryOld = function() {
-
-            if (this.entryAdditionForm.$valid) {
-
-                var lastSubmitEntry = $scope.indexEntryData;
-                var uploadObj = { name: lastSubmitEntry.fileName, overlayId: parseInt(lastSubmitEntry.url) };
-
-                sweepService.addIndexEntry($scope.indexEntryData)
-
-                    // Add Index entry successful.
-                    .then(function (data) {
-
-                        $log.info("Entry Addition successful in the system: " + data);
-                        return gvodService.pendingUpload(uploadObj);
-                    },
-                    function (error) {
-                        return $q.reject(error);
-                    })
-
-                    // Pending Upload Result Handling.
-                    .then(function (success) {
-
-                        $log.info("Got the pending upload success");
-                        return gvodService.upload(uploadObj);
-
-                    },
-                    function (error) {
-                        $log.info("Error pending upload: " + error);
-                        return $q.reject(error);
-                    })
-
-                    // Gvod Upload Result Handling.
-                    .then(function (success) {
-
-                        $log.info("Index Upload Successful");
-
-                        _houseKeeping($scope.indexEntryData);
-                        _initializeLibrary();
-
-                        AlertService.addAlert({type: 'success', msg: 'Upload Successful.'});
-                    },
-                    function (error) {
-                        $log.info("Upload Result: " + error);
-                        return $q.reject(error);
-                    })
-
-                    // Exception Handling.
-                    .then(null, function (error) {
-                        AlertService.addAlert({type: 'warning', msg: error});
-                    })
-            }
-        };
-
 
         /**
          * Submit Index Entries in the
@@ -260,9 +206,6 @@ angular.module('app')
         };
 
 
-
-
-
         /**
          * Remove Entry from the Library.
          * @param entry
@@ -275,7 +218,10 @@ angular.module('app')
             }
         };
 
-
+        /**
+         * Initialize the scope with
+         * the correct parameters.
+         */
         _initScope($scope);
 
     }]);

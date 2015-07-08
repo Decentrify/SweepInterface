@@ -44,7 +44,7 @@ angular.module("app")
             setServer : function(data){
                 $log.info("Set Server Command Called");
                 server = data;
-                $rootScope.$broadcast('server:updated', server);
+                $rootScope.$broadcast('gvod-server:updated', server);
             },
         
             getServer : function(){

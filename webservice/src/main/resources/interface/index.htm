@@ -22,15 +22,16 @@
     <div class="container">
         
         <a href="#/" class="navbar-brand specialFont">Sweep</a>
-        <!--<ul class="nav navbar-nav navbar-left">-->
-            <!--<li class="dropdown">-->
-                <!--<a href class="dropdown-toggle" data-toggle="dropdown" role="button">File<span class="caret"></span></a>-->
-                <!--<ul class="dropdown-menu" role="menu">-->
-                    <!--<li><a href click-directive>Set Server Address</a></li>-->
-                    <!--<li><input type="file" id="fileUploader" style= "display: none" file-uploader></li>-->
-                <!--</ul>-->
-            <!--</li>-->
-        <!--</ul>-->
+
+        <ul class="nav navbar-nav navbar-left">
+            <li class="dropdown">
+                <a href class="dropdown-toggle" data-toggle="dropdown" role="button">File<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href click-directive>Set Server Address</a></li>
+                    <li><input type="file" id="fileUploader" style= "display: none" file-uploader></li>
+                </ul>
+            </li>
+        </ul>
         
         <form name ="searchForm" class="navbar-form navbar-left" ng-submit="search(searchObj.searchTerm)" role="search" novalidate>
             

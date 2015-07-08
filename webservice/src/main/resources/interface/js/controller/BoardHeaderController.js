@@ -28,7 +28,7 @@ angular.module('app')
         _initScope($scope);
     }])
 
-    .directive('fileUploader', ['$log','gvodService', function ($log,gvodService) {
+    .directive('fileUploader', ['$log','gvodService', 'sweepService', function ($log,gvodService, sweepService) {
 
         // Upload the file to the system.
         return{
@@ -41,11 +41,20 @@ angular.module('app')
                     var reader = new FileReader();
                     reader.onload = function (loadEvent) {
 
+
+                        $log.debug(" Going to load the file content ... ");
+
                         var serverData = {
                             info: loadEvent.target.result
                         };
 
-                        gvodService.setServer(JSON.parse(serverData.info));
+                        var serverInfo = JSON.parse(serverData.info);
+
+                        $log.debug(serverInfo);
+
+                        gvodService.setServer(serverInfo.gvod);
+                        sweepService.setServer(serverInfo.sweep);
+
                         element.val("");
                     };
 

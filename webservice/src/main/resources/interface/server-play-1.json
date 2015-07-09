@@ -1,0 +1,13 @@
+{
+  "gvod":{
+    "ip":"193.10.64.86",
+    "port": 41002,
+    "name":"cloud3.sics.se"
+  },
+
+  "sweep":{
+    "ip":"193.10.64.86",
+    "port": 31002,
+    "name":"cloud3.sics.se"
+  }
+}
